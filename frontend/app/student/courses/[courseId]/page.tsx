@@ -35,7 +35,7 @@ export default function CourseExplorerPage() {
       <div className="border-b bg-card">
         <div className="max-w-5xl mx-auto px-4 py-4">
           <div className="flex items-center gap-3 mb-4">
-            <Link href={`/student/map/demo-student`}>
+            <Link href={`/education/courses`}>
               <Button variant="ghost" size="icon"><ArrowLeft className="h-4 w-4" /></Button>
             </Link>
             <div className="flex-1">

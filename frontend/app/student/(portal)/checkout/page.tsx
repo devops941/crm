@@ -12,9 +12,20 @@ export default function CheckoutPage() {
   const [difficulties, setDifficulties] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const checkInTime = "09:15 AM";
-  const checkOutTime = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true });
-  const duration = "8h 15m";
-  const topics = [{ name: "Topic Name", done: true }, { name: "Topic Name", done: true }, { name: "Topic Name", done: false }];
+  const [checkOutTime] = useState(() => new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true }));
+  const duration = (() => {
+    const inH = 9, inM = 15;
+    const now = new Date();
+    const outM = now.getHours() * 60 + now.getMinutes();
+    const inTotal = inH * 60 + inM;
+    const diff = Math.max(0, outM - inTotal);
+    return `${Math.floor(diff / 60)}h ${diff % 60}m`;
+  })();
+  const topics = [
+    { name: "useState & useEffect Deep Dive", done: true },
+    { name: "useContext & Context API", done: true },
+    { name: "Custom Hooks", done: false },
+  ];
 
   if (submitted) {
     return (
@@ -31,7 +42,7 @@ export default function CheckoutPage() {
   return (
     <div className="p-4 space-y-4">
       <div className="bg-primary/5 rounded-2xl p-4 border border-primary/10 text-center">
-        <Badge variant="outline" className="font-mono text-xs">Day 45</Badge>
+        <Badge variant="outline" className="font-mono text-xs">Day 81</Badge>
         <h2 className="text-base font-bold mt-2">Daily Check-Out</h2>
         <div className="flex items-center justify-center gap-4 mt-2 text-xs text-muted-foreground">
           <span><Clock className="h-3.5 w-3.5 inline mr-0.5" />{checkInTime}</span>
@@ -59,7 +70,7 @@ export default function CheckoutPage() {
       <div className="rounded-xl border bg-card p-4"><h3 className="text-sm font-semibold mb-2">What did you learn?</h3><Textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Key takeaways..." className="rounded-lg min-h-[80px]" /></div>
       <div className="rounded-xl border bg-card p-4"><h3 className="text-sm font-semibold mb-2">Doubts?</h3><Textarea value={difficulties} onChange={(e) => setDifficulties(e.target.value)} placeholder="Topics you found confusing..." className="rounded-lg min-h-[60px]" /></div>
 
-      <div className="rounded-xl border bg-muted/30 p-4"><h3 className="text-xs font-semibold text-muted-foreground mb-1.5">Tomorrow (Day 46)</h3><p className="text-sm text-muted-foreground">&bull; Topic Name</p><p className="text-sm text-muted-foreground">&bull; Topic Name</p></div>
+      <div className="rounded-xl border bg-muted/30 p-4"><h3 className="text-xs font-semibold text-muted-foreground mb-1.5">Tomorrow (Day 82)</h3><p className="text-sm text-muted-foreground">&bull; useReducer & Complex State Management</p><p className="text-sm text-muted-foreground">&bull; useMemo & useCallback — Performance Optimisation</p></div>
 
       <Button className="w-full h-14 text-base rounded-xl bg-emerald-600 hover:bg-emerald-700" onClick={() => setSubmitted(true)} disabled={rating === 0}><CheckCircle2 className="h-5 w-5 mr-2" /> Submit &amp; Check Out</Button>
     </div>

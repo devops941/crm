@@ -11,10 +11,8 @@ export default function Home() {
     const user = getUser();
     if (!user) {
       router.replace("/login");
-    } else if (user.role === "admin") {
-      router.replace("/dashboard");
     } else {
-      router.replace("/student/checkin");
+      router.replace("/dashboard");
     }
   }, [router]);
 

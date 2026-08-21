@@ -1,18 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import type { DiscoveryFormData } from "@/app/student/discovery/page";
 
 const careerGoals = [
   "Get a Job", "Switch Career", "Upskill", "Freelance", "Start a Business", "Academic Growth",
 ];
 
-export function GoalsStep() {
-  const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
+interface Props {
+  data: DiscoveryFormData;
+  onChange: (partial: Partial<DiscoveryFormData>) => void;
+}
 
+export function GoalsStep({ data, onChange }: Props) {
   return (
     <Card>
       <CardHeader>
@@ -20,16 +23,16 @@ export function GoalsStep() {
         <p className="text-sm text-muted-foreground">Tell us about your career intentions and availability</p>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Career Intention */}
         <div>
           <Label className="mb-3 block">Career Intention *</Label>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {careerGoals.map((goal) => (
               <button
                 key={goal}
-                onClick={() => setSelectedGoal(goal)}
+                type="button"
+                onClick={() => onChange({ careerGoal: goal })}
                 className={`h-14 rounded-lg border-2 text-sm font-medium transition-all ${
-                  selectedGoal === goal
+                  data.careerGoal === goal
                     ? "border-primary bg-primary/10 text-primary"
                     : "border-border hover:border-primary/40 text-foreground"
                 }`}
@@ -40,17 +43,15 @@ export function GoalsStep() {
           </div>
         </div>
 
-        {/* Target Role */}
         <div className="space-y-2">
           <Label htmlFor="targetRole">Target Job Role (optional)</Label>
-          <Input id="targetRole" placeholder="e.g. Full Stack Developer, Data Analyst..." className="h-12 text-base" />
+          <Input id="targetRole" placeholder="e.g. Full Stack Developer, Data Analyst..." className="h-12 text-base" value={data.targetRole} onChange={(e) => onChange({ targetRole: e.target.value })} />
         </div>
 
-        {/* Time + Duration */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label>Learning Hours / Week *</Label>
-            <Select>
+            <Select value={data.hoursPerWeek || undefined} onValueChange={(v) => v && onChange({ hoursPerWeek: v })}>
               <SelectTrigger className="h-12"><SelectValue placeholder="Select hours..." /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="5">Up to 5 hours</SelectItem>
@@ -62,7 +63,7 @@ export function GoalsStep() {
           </div>
           <div className="space-y-2">
             <Label>Preferred Duration *</Label>
-            <Select>
+            <Select value={data.preferredDuration || undefined} onValueChange={(v) => v && onChange({ preferredDuration: v })}>
               <SelectTrigger className="h-12"><SelectValue placeholder="Select duration..." /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="1">1-2 months</SelectItem>
@@ -75,11 +76,10 @@ export function GoalsStep() {
           </div>
         </div>
 
-        {/* Budget + Start Date */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label>Budget / Affordability</Label>
-            <Select>
+            <Select value={data.budget || undefined} onValueChange={(v) => v && onChange({ budget: v })}>
               <SelectTrigger className="h-12"><SelectValue placeholder="Select budget range..." /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="10k">Up to ₹10,000</SelectItem>
@@ -91,16 +91,15 @@ export function GoalsStep() {
             </Select>
           </div>
           <div className="space-y-2">
-            <Label>Preferred Start Date</Label>
-            <Input type="date" className="h-12 text-base" />
+            <Label htmlFor="startDate">Preferred Start Date</Label>
+            <Input id="startDate" type="date" className="h-12 text-base" value={data.startDate} onChange={(e) => onChange({ startDate: e.target.value })} />
           </div>
         </div>
 
-        {/* Salary Expectation */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label>Expected Salary After Course (LPA)</Label>
-            <Select>
+            <Select value={data.expectedSalary || undefined} onValueChange={(v) => v && onChange({ expectedSalary: v })}>
               <SelectTrigger className="h-12"><SelectValue placeholder="Select range..." /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="3">₹2-4 LPA</SelectItem>
@@ -112,7 +111,7 @@ export function GoalsStep() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="courseSearch">Looking for a specific course? (optional)</Label>
-            <Input id="courseSearch" placeholder="e.g. Full Stack Developer, Data Science..." className="h-12 text-base" />
+            <Input id="courseSearch" placeholder="e.g. Full Stack Developer, Data Science..." className="h-12 text-base" value={data.courseSearch} onChange={(e) => onChange({ courseSearch: e.target.value })} />
           </div>
         </div>
       </CardContent>

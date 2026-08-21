@@ -4,16 +4,17 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MapPin, BookOpen, LogOut as LogOutIcon, BarChart3, CalendarDays } from "lucide-react";
+import { MapPin, BookOpen, LogOut as LogOutIcon, BarChart3, CalendarDays, ClipboardCheck } from "lucide-react";
 import { LogoutDialog } from "@/components/logout-dialog";
 import { getUser } from "@/lib/auth";
 
 const navItems = [
   { name: "Check-In", href: "/student/checkin", icon: MapPin },
   { name: "Today", href: "/student/today", icon: BookOpen },
-  { name: "Logout", href: "#logout", icon: LogOutIcon },
+  { name: "Check Out", href: "/student/checkout", icon: ClipboardCheck },
   { name: "Progress", href: "/student/progress", icon: BarChart3 },
   { name: "Attendance", href: "/student/attendance", icon: CalendarDays },
+  { name: "Logout", href: "#logout", icon: LogOutIcon },
 ];
 
 export default function StudentLayout({ children }: { children: React.ReactNode }) {
@@ -24,7 +25,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
   useEffect(() => {
     const user = getUser();
     if (!user) { router.replace("/login"); return; }
-    if (user.role !== "student") { router.replace("/dashboard"); }
+    // Student self-service is accessible to any authenticated user for now
   }, [router]);
 
   return (
