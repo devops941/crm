@@ -9,15 +9,20 @@ import { logout } from "@/lib/auth";
 interface LogoutDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onConfirm?: () => void;
 }
 
-export function LogoutDialog({ open, onOpenChange }: LogoutDialogProps) {
+export function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {
   const router = useRouter();
 
   const handleLogout = () => {
     logout();
     onOpenChange(false);
-    router.push("/login");
+    if (onConfirm) {
+      onConfirm();
+    } else {
+      router.push("/login");
+    }
   };
 
   return (

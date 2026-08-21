@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#f4f3f0;font-family:'Inter',system-ui,sans-serif;color:#1c1b19}
+  a{color:oklch(52% 0.13 250);text-decoration:none}
+  a:hover{color:oklch(44% 0.13 250);text-decoration:underline}
+  ::selection{background:oklch(88% 0.04 250)}
+</style>
+</helmet>
+
+<div style="max-width:1400px;margin:0 auto;padding:0 40px 120px">
+
+<!-- ============ TOP BANNER / JUMP NAV ============ -->
+<div style="position:sticky;top:0;z-index:50;background:#f4f3f0;border-bottom:1px solid #d9d7d2;padding:16px 0;margin-bottom:8px">
+  <div style="font:700 15px Inter;letter-spacing:-0.01em">Kaizen Infinities — Unified CRM</div>
+  <div style="font:12px 'JetBrains Mono';color:#8a877e;margin:2px 0 10px">Low/mid-fidelity product wireframe · Round 1 of N · realistic sample data</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px 14px;font:12px 'JetBrains Mono'">
+    <a href="#ia">01 IA / Sitemap</a><a href="#shell">02 Global Shell</a><a href="#dashboard">03 Exec Dashboard</a>
+    <a href="#people">04 People</a><a href="#orgs">05 Organizations</a><a href="#institutions">06 Institutions</a>
+    <a href="#mous">07 MoUs</a><a href="#leads-opps">08 Leads &amp; Opportunities</a><a href="#education">09 Education</a>
+    <a href="#handoff">10 Handoff Summary</a><a href="#phase2">11 Phase 2 Overview</a>
+  </div>
+</div>
+
+<!-- ============ 01 IA / SITEMAP ============ -->
+<section id="ia" style="padding-top:36px">
+  <div style="font:700 26px Inter;margin-bottom:4px">01 · Information Architecture</div>
+  <div style="font:14px Inter;color:#6b675e;max-width:820px;margin-bottom:28px">Built before any screens, per spec §43. Defines the canonical entity model, the primary/secondary navigation split, and why each module lives where it does.</div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em;color:#8a877e">Entity Model — one canonical Person, one canonical Organization</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:28px;margin-bottom:8px;overflow-x:auto">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:nowrap;min-width:1180px">
+      <div style="text-align:center;flex:none;width:120px"><div style="border:2px solid #1c1b19;border-radius:6px;padding:10px 8px;font:700 13px Inter">PERSON</div><div style="font:10px 'JetBrains Mono';color:#8a877e;margin-top:4px">1 canonical record</div></div>
+      <div style="font:18px Inter;color:#b6b2a8">↔</div>
+      <div style="text-align:center;flex:none;width:150px"><div style="border:2px solid #1c1b19;border-radius:6px;padding:10px 8px;font:700 13px Inter">ORGANIZATION</div><div style="font:10px 'JetBrains Mono';color:#8a877e;margin-top:4px">incl. Institution subtype</div></div>
+      <div style="font:18px Inter;color:#b6b2a8">↔</div>
+      <div style="text-align:center;flex:none;width:120px"><div style="border:1px solid #6b675e;border-radius:6px;padding:10px 8px;font:600 13px Inter">RELATIONSHIP</div></div>
+      <div style="font:18px Inter;color:#b6b2a8">→</div>
+      <div style="text-align:center;flex:none;width:110px"><div style="border:1px solid #6b675e;border-radius:6px;padding:10px 8px;font:600 13px Inter">ACTIVITY</div></div>
+      <div style="font:18px Inter;color:#b6b2a8">→</div>
+      <div style="text-align:center;flex:none;width:110px"><div style="border:1px solid #6b675e;border-radius:6px;padding:10px 8px;font:600 13px Inter">LEAD</div></div>
+      <div style="font:18px Inter;color:#b6b2a8">→</div>
+      <div style="text-align:center;flex:none;width:130px"><div style="border:1px solid #6b675e;border-radius:6px;padding:10px 8px;font:600 13px Inter">OPPORTUNITY</div></div>
+      <div style="font:18px Inter;color:#b6b2a8">→</div>
+      <div style="text-align:center;flex:none;width:120px"><div style="border:1px solid #6b675e;border-radius:6px;padding:10px 8px;font:600 13px Inter">TRANSACTION</div></div>
+      <div style="font:18px Inter;color:#b6b2a8">→</div>
+      <div style="text-align:center;flex:none;width:110px"><div style="border:1px solid #6b675e;border-radius:6px;padding:10px 8px;font:600 13px Inter">DELIVERY</div></div>
+      <div style="font:18px Inter;color:#b6b2a8">→</div>
+      <div style="text-align:center;flex:none;width:110px"><div style="border:2px solid #1c1b19;border-radius:6px;padding:10px 8px;font:700 13px Inter">OUTCOME</div></div>
+    </div>
+  </div>
+  <div style="font:12px Inter;color:#8a877e;margin-bottom:26px;max-width:900px">A role change (Student → Alumni → Corporate Contact) never creates a new Person. A relationship change (Prospect → Training Partner → Technology Client) never creates a new Organization. Institutions are Organizations with <span style="font-family:'JetBrains Mono'">institution_type</span> set — same table, same relationship/activity/opportunity machinery.</div>
+
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:24px;margin-bottom:28px">
+    <div>
+      <div style="font:700 13px Inter;margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em;color:#8a877e">Navigation Hierarchy</div>
+      <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:18px">
+        <div style="font:11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">PRIMARY (sidebar)</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+          <span style="border:1px solid #1c1b19;border-radius:4px;padding:4px 8px;font:12px Inter;font-weight:600">Dashboard</span>
+          <span style="border:1px solid #1c1b19;border-radius:4px;padding:4px 8px;font:12px Inter;font-weight:600">People</span>
+          <span style="border:1px solid #1c1b19;border-radius:4px;padding:4px 8px;font:12px Inter;font-weight:600">Organizations</span>
+          <span style="border:1px solid #1c1b19;border-radius:4px;padding:4px 8px;font:12px Inter;font-weight:600">Institutions</span>
+          <span style="border:1px solid #1c1b19;border-radius:4px;padding:4px 8px;font:12px Inter;font-weight:600">Leads</span>
+          <span style="border:1px solid #1c1b19;border-radius:4px;padding:4px 8px;font:12px Inter;font-weight:600">Opportunities</span>
+          <span style="border:1px solid #1c1b19;border-radius:4px;padding:4px 8px;font:12px Inter;font-weight:600">MoUs</span>
+          <span style="border:1px solid #1c1b19;border-radius:4px;padding:4px 8px;font:12px Inter;font-weight:600">Activities</span>
+          <span style="border:1px solid #1c1b19;border-radius:4px;padding:4px 8px;font:12px Inter;font-weight:600">Education ▸</span>
+          <span style="border:1px dashed #b6b2a8;border-radius:4px;padding:4px 8px;font:12px Inter;color:#9a978f">Campaigns (Ph.2)</span>
+          <span style="border:1px dashed #b6b2a8;border-radius:4px;padding:4px 8px;font:12px Inter;color:#9a978f">Projects (Ph.2)</span>
+          <span style="border:1px solid #1c1b19;border-radius:4px;padding:4px 8px;font:12px Inter;font-weight:600">Reports</span>
+          <span style="border:1px solid #1c1b19;border-radius:4px;padding:4px 8px;font:12px Inter;font-weight:600">Settings</span>
+        </div>
+        <div style="font:11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">EDUCATION ▸ (secondary rail)</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+          <span style="border:1px solid #c7c4bb;border-radius:4px;padding:3px 7px;font:11px Inter">Students</span><span style="border:1px solid #c7c4bb;border-radius:4px;padding:3px 7px;font:11px Inter">Admissions</span><span style="border:1px solid #c7c4bb;border-radius:4px;padding:3px 7px;font:11px Inter">Courses</span><span style="border:1px solid #c7c4bb;border-radius:4px;padding:3px 7px;font:11px Inter">Career Paths</span><span style="border:1px solid #c7c4bb;border-radius:4px;padding:3px 7px;font:11px Inter">Enrollments</span><span style="border:1px solid #c7c4bb;border-radius:4px;padding:3px 7px;font:11px Inter">Attendance</span><span style="border:1px solid #c7c4bb;border-radius:4px;padding:3px 7px;font:11px Inter">Learning Progress</span><span style="border:1px solid #c7c4bb;border-radius:4px;padding:3px 7px;font:11px Inter">Certifications</span><span style="border:1px solid #c7c4bb;border-radius:4px;padding:3px 7px;font:11px Inter">Placements</span><span style="border:1px solid #c7c4bb;border-radius:4px;padding:3px 7px;font:11px Inter">Alumni</span>
+        </div>
+        <div style="font:11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">CONTEXTUAL (tabs inside a record, not standalone)</div>
+        <div style="font:12px Inter;color:#6b675e;line-height:1.7">Communications, Tasks, Notes, Documents, Payments, Timeline — always rendered as tabs on Person / Org / Institution / Opportunity, never a lone top-level page a user has to remember to visit. Activities top-nav item is a cross-record inbox (calendar + task list + comms) for "what do I do today," distinct from the per-record tab.</div>
+      </div>
+    </div>
+    <div>
+      <div style="font:700 13px Inter;margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em;color:#8a877e">Why these calls</div>
+      <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:18px;font:12.5px Inter;line-height:1.8;color:#3a3833">
+        <b>Institutions</b> gets its own primary nav item (not buried under Organizations) because the map-based prospecting workflow (§10–14) is a flagship, high-frequency flow for counsellors and BD — it needs a one-click entry point. It's still an Organization subtype underneath.<br><br>
+        <b>MoUs</b> is primary because the spec explicitly rejects "MoU = Yes/No" — it's a first-class record with its own lifecycle, list, and renewal workflow, used by both Institutions and corporate Organizations.<br><br>
+        <b>Communications</b> is not primary. Reps live inside a record when they message someone; a standalone inbox is only useful as a triage view, so it's folded into the <b>Activities</b> hub instead of fragmenting attention across two navs.<br><br>
+        <b>Campaigns / Projects</b> exist in the model (they're referenced by Opportunities and Leads) but are deferred to Phase 2 in this delivery — see Handoff Summary.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 GLOBAL SHELL ============ -->
+<section id="shell" style="padding-top:56px;border-top:1px solid #e4e2dd">
+  <div style="font:700 26px Inter;margin-bottom:4px">02 · Global Application Shell</div>
+  <div style="font:14px Inter;color:#6b675e;max-width:820px;margin-bottom:8px">Purpose: consistent chrome for every screen — nav, search, quick-create, alerts. Roles: all. Reused component: <b>App Shell</b>.</div>
+
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;overflow:hidden;display:flex;min-height:560px">
+    <!-- sidebar -->
+    <div style="width:208px;flex:none;border-right:1px solid #e4e2dd;padding:16px 12px;display:flex;flex-direction:column;gap:2px">
+      <div style="display:flex;align-items:center;gap:8px;padding:6px 6px 16px;border-bottom:1px solid #e4e2dd;margin-bottom:10px">
+        <div style="width:24px;height:24px;border-radius:5px;background:#1c1b19"></div>
+        <div style="font:700 12.5px Inter">Kaizen CRM</div>
+        <div style="margin-left:auto;font:10px 'JetBrains Mono';color:#9a978f;border:1px solid #d9d7d2;border-radius:3px;padding:1px 4px">▾</div>
+      </div>
+      <div style="font:10px 'JetBrains Mono';color:#b6b2a8;padding:6px 6px 2px">WORKSPACE: KAIZEN INFINITIES</div>
+      <div style="height:8px"></div>
+      <div style="background:#1c1b19;color:#fff;border-radius:5px;padding:7px 8px;font:600 12.5px Inter">▤ Dashboard</div>
+      <div style="padding:7px 8px;font:12.5px Inter;color:#3a3833">◇ People</div>
+      <div style="padding:7px 8px;font:12.5px Inter;color:#3a3833">◇ Organizations</div>
+      <div style="padding:7px 8px;font:12.5px Inter;color:#3a3833">◇ Institutions</div>
+      <div style="padding:7px 8px;font:12.5px Inter;color:#3a3833">◇ Leads</div>
+      <div style="padding:7px 8px;font:12.5px Inter;color:#3a3833">◇ Opportunities</div>
+      <div style="padding:7px 8px;font:12.5px Inter;color:#3a3833">◇ MoUs</div>
+      <div style="padding:7px 8px;font:12.5px Inter;color:#3a3833">◇ Activities</div>
+      <div style="padding:7px 8px;font:12.5px Inter;color:#3a3833;display:flex;justify-content:space-between">Education <span>▾</span></div>
+      <div style="padding:2px 8px 6px 22px;font:11.5px Inter;color:#8a877e;display:flex;flex-direction:column;gap:5px">
+        <span>Students</span><span>Admissions</span><span>Courses</span><span>Enrollments</span><span>Attendance</span><span>Learning Progress</span><span>Placements</span><span>Alumni</span>
+      </div>
+      <div style="padding:7px 8px;font:12.5px Inter;color:#c7c4bb">◇ Campaigns <span style="font:10px 'JetBrains Mono'">PH2</span></div>
+      <div style="padding:7px 8px;font:12.5px Inter;color:#c7c4bb">◇ Projects <span style="font:10px 'JetBrains Mono'">PH2</span></div>
+      <div style="padding:7px 8px;font:12.5px Inter;color:#3a3833">◇ Reports</div>
+      <div style="margin-top:auto;border-top:1px solid #e4e2dd;padding-top:10px;display:flex;align-items:center;gap:8px">
+        <div style="width:26px;height:26px;border-radius:50%;background:#e4e2dd"></div>
+        <div style="font:12px Inter">Priya Ramesh</div>
+      </div>
+    </div>
+    <!-- main -->
+    <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+      <div style="border-bottom:1px solid #e4e2dd;padding:10px 20px;display:flex;align-items:center;gap:14px">
+        <div style="flex:1;border:1px solid #d9d7d2;border-radius:6px;padding:7px 12px;font:12.5px Inter;color:#9a978f;max-width:420px">🔍 Search people, orgs, institutions, MoUs, opportunities…</div>
+        <div style="border:1px solid #1c1b19;border-radius:6px;padding:6px 12px;font:600 12px Inter">+ Quick Create</div>
+        <div style="font:16px Inter">🔔</div>
+        <div style="font:16px Inter">✓</div>
+      </div>
+      <div style="padding:12px 20px 0;font:11px 'JetBrains Mono';color:#9a978f">Institutions / Madurai / Sri Meenakshi College of Engineering</div>
+      <div style="padding:6px 20px 16px;font:700 19px Inter;display:flex;align-items:center;justify-content:space-between">
+        Sri Meenakshi College of Engineering
+        <div style="display:flex;gap:8px;font:600 12px Inter">
+          <span style="border:1px solid #1c1b19;border-radius:5px;padding:6px 10px">Create Activity</span>
+          <span style="border:1px solid #d9d7d2;border-radius:5px;padding:6px 10px;color:#6b675e">Edit</span>
+        </div>
+      </div>
+      <div style="flex:1;margin:0 20px 20px;border:1px dashed #d9d7d2;border-radius:6px;display:flex;align-items:center;justify-content:center;font:12px 'JetBrains Mono';color:#b6b2a8">— page content renders here —</div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font:12px 'JetBrains Mono';color:#6b675e">
+    <div><b style="color:#1c1b19">COMPONENTS</b><br>App Shell, Global Search, Quick Create, Notification Bell, Breadcrumb, Page Header</div>
+    <div><b style="color:#1c1b19">GLOBAL SEARCH RESULTS</b><br>Grouped by type, badge shows entity kind (Institution / Person / Opportunity / MoU), recent + fuzzy + exact-ID match</div>
+    <div><b style="color:#1c1b19">QUICK CREATE MENU</b><br>Person, Organization, Institution, Lead, Opportunity, Activity, Task, MoU, Student, Enrollment — opens a slide-over form, no page nav</div>
+    <div><b style="color:#1c1b19">RESPONSIVE</b><br>Tablet: sidebar collapses to icon rail. Mobile: sidebar becomes bottom sheet nav; header search becomes a full-screen overlay.</div>
+  </div>
+</section>
+
+<!-- ============ 03 EXECUTIVE DASHBOARD ============ -->
+<section id="dashboard" style="padding-top:56px;border-top:1px solid #e4e2dd">
+  <div style="font:700 26px Inter;margin-bottom:4px">03 · Founder / Executive Dashboard</div>
+  <div style="font:14px Inter;color:#6b675e;max-width:820px;margin-bottom:8px">Purpose: "How is Kaizen performing?" — every element maps to an actionable question. Roles: Founder, Executive, Admin. Entry: default landing page after login.</div>
+
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:20px">
+    <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
+      <span style="border:1px solid #1c1b19;border-radius:14px;padding:5px 12px;font:12px Inter;font-weight:600">This Quarter ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">All Verticals ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">All Branches ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Owner: All ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Region / District ▾</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px">
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px"><div style="font:11px 'JetBrains Mono';color:#8a877e">REVENUE (QTD)</div><div style="font:700 22px Inter;margin-top:4px">₹4.82 Cr</div><div style="font:11px Inter;color:oklch(50% 0.13 145)">↑ 18% vs last qtr</div></div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px"><div style="font:11px 'JetBrains Mono';color:#8a877e">OPEN PIPELINE</div><div style="font:700 22px Inter;margin-top:4px">₹11.4 Cr</div><div style="font:11px Inter;color:#8a877e">142 opportunities</div></div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px"><div style="font:11px 'JetBrains Mono';color:#8a877e">WIN RATE</div><div style="font:700 22px Inter;margin-top:4px">31%</div><div style="font:11px Inter;color:#8a877e">trailing 90 days</div></div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px"><div style="font:11px 'JetBrains Mono';color:#8a877e">COLLECTIONS DUE</div><div style="font:700 22px Inter;margin-top:4px">₹68 L</div><div style="font:11px Inter;color:oklch(50% 0.13 25)">₹14L overdue</div></div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px"><div style="font:11px 'JetBrains Mono';color:#8a877e">ACTIVE MoUs</div><div style="font:700 22px Inter;margin-top:4px">86</div><div style="font:11px Inter;color:oklch(55% 0.13 70)">7 expiring &lt;30d</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-bottom:16px">
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:16px">
+        <div style="font:600 13px Inter;margin-bottom:10px">Revenue by Vertical</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;gap:8px;font:11.5px Inter"><span style="width:110px;color:#6b675e">Education</span><div style="flex:1;background:#eeece7;border-radius:3px;height:10px"><div style="width:72%;height:100%;background:#1c1b19;border-radius:3px"></div></div><span>₹1.9 Cr</span></div>
+          <div style="display:flex;align-items:center;gap:8px;font:11.5px Inter"><span style="width:110px;color:#6b675e">SAP / Enterprise</span><div style="flex:1;background:#eeece7;border-radius:3px;height:10px"><div style="width:55%;height:100%;background:#1c1b19;border-radius:3px"></div></div><span>₹1.1 Cr</span></div>
+          <div style="display:flex;align-items:center;gap:8px;font:11.5px Inter"><span style="width:110px;color:#6b675e">Corp. Training</span><div style="flex:1;background:#eeece7;border-radius:3px;height:10px"><div style="width:40%;height:100%;background:#1c1b19;border-radius:3px"></div></div><span>₹78 L</span></div>
+          <div style="display:flex;align-items:center;gap:8px;font:11.5px Inter"><span style="width:110px;color:#6b675e">Cybersecurity</span><div style="flex:1;background:#eeece7;border-radius:3px;height:10px"><div style="width:28%;height:100%;background:#1c1b19;border-radius:3px"></div></div><span>₹52 L</span></div>
+          <div style="display:flex;align-items:center;gap:8px;font:11.5px Inter"><span style="width:110px;color:#6b675e">Software / AI</span><div style="flex:1;background:#eeece7;border-radius:3px;height:10px"><div style="width:22%;height:100%;background:#1c1b19;border-radius:3px"></div></div><span>₹41 L</span></div>
+        </div>
+      </div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:16px">
+        <div style="font:600 13px Inter;margin-bottom:10px">Critical Tasks</div>
+        <div style="display:flex;flex-direction:column;gap:9px;font:12px Inter">
+          <div style="border-left:3px solid oklch(55% 0.13 25);padding-left:8px">MoU renewal — Velammal Engg. College · due tomorrow</div>
+          <div style="border-left:3px solid oklch(55% 0.13 70);padding-left:8px">Proposal follow-up — TVS Motor Co. · due in 2 days</div>
+          <div style="border-left:3px solid #c7c4bb;padding-left:8px">Faculty dev. workshop confirm — Madurai Kamaraj Univ.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="border:1px solid #e4e2dd;border-radius:6px;padding:16px">
+      <div style="font:600 13px Inter;margin-bottom:10px">Recent Activity</div>
+      <table style="width:100%;border-collapse:collapse;font:12px Inter">
+        <tr style="color:#8a877e;font:11px 'JetBrains Mono'"><td style="padding:4px 8px 4px 0">TIME</td><td>RECORD</td><td>ACTIVITY</td><td>OWNER</td></tr>
+        <tr><td style="padding:6px 8px 6px 0;color:#6b675e">Today 11:40</td><td>Sri Meenakshi College</td><td>Meeting logged — placement discussion</td><td>Priya R.</td></tr>
+        <tr><td style="padding:6px 8px 6px 0;color:#6b675e">Today 09:15</td><td>TVS Motor Co.</td><td>Proposal sent — cybersecurity audit</td><td>Arjun K.</td></tr>
+        <tr><td style="padding:6px 8px 6px 0;color:#6b675e">Yesterday</td><td>Velammal Engg. College</td><td>MoU moved to Negotiating</td><td>Priya R.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font:12px 'JetBrains Mono';color:#6b675e">
+    <div><b style="color:#1c1b19">DATA</b><br>revenue_by_vertical, pipeline_summary, collections, mou_status_counts, task_queue, activity_feed — all scoped by date/vertical/branch/owner/region filters</div>
+    <div><b style="color:#1c1b19">ACTIONS</b><br>Drill into any KPI → filtered list/report. Click task → complete or reassign. Click activity row → open record</div>
+    <div><b style="color:#1c1b19">PERMISSIONS</b><br>Financial KPIs (revenue, collections) hidden for Telecaller, Trainer, Counsellor roles — see permission matrix §Handoff</div>
+    <div><b style="color:#1c1b19">STATES</b><br>Empty: "No data for this filter combination." Loading: skeleton KPI cards. Error: retry banner, last-known values shown stale-flagged</div>
+  </div>
+</section>
+
+<!-- ============ 04 PEOPLE ============ -->
+<section id="people" style="padding-top:56px;border-top:1px solid #e4e2dd">
+  <div style="font:700 26px Inter;margin-bottom:4px">04 · People</div>
+  <div style="font:14px Inter;color:#6b675e;max-width:900px;margin-bottom:20px">The canonical Person record. One human, many roles over time — Student → Alumni → Corporate Contact never forks the record.</div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">People List</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:18px;margin-bottom:14px">
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+      <div style="flex:1;min-width:220px;border:1px solid #d9d7d2;border-radius:6px;padding:6px 10px;font:12px Inter;color:#9a978f">🔍 Search people…</div>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Role ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Organization ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Lead / Customer status ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Owner ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Location ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Last activity ▾</span>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font:12.5px Inter">
+      <tr style="font:11px 'JetBrains Mono';color:#8a877e"><td style="padding:6px 8px 6px 0">NAME</td><td>ROLES</td><td>ORG / INSTITUTION</td><td>STAGE</td><td>OWNER</td><td>LAST ACTIVITY</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">Arun Selvam</td><td><span style="border:1px solid oklch(52% 0.13 250);color:oklch(45% 0.13 250);border-radius:10px;padding:2px 7px;font:10.5px Inter">Alumni</span> <span style="border:1px solid oklch(52% 0.13 145);color:oklch(42% 0.13 145);border-radius:10px;padding:2px 7px;font:10.5px Inter">Corp. Contact</span></td><td>TVS Motor Co.</td><td>Opportunity</td><td>Arjun K.</td><td>2 days ago</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">Deepa Krishnan</td><td><span style="border:1px solid #9a978f;color:#6b675e;border-radius:10px;padding:2px 7px;font:10.5px Inter">Student</span></td><td>Kaizen Institute — Madurai Br.</td><td>Enrolled</td><td>Kavya S.</td><td>Today</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">Rish Kumar</td><td><span style="border:1px solid oklch(52% 0.13 300);color:oklch(45% 0.13 300);border-radius:10px;padding:2px 7px;font:10.5px Inter">Decision Influencer</span></td><td>Sri Meenakshi College of Engg.</td><td>Prospect</td><td>Priya R.</td><td>74 days ago</td></tr>
+    </table>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Person 360</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;overflow:hidden">
+    <div style="padding:18px 20px;border-bottom:1px solid #e4e2dd;display:flex;gap:16px;align-items:flex-start">
+      <div style="width:52px;height:52px;border-radius:50%;background:repeating-linear-gradient(45deg,#eeece7,#eeece7 4px,#f4f3f0 4px,#f4f3f0 8px)"></div>
+      <div style="flex:1">
+        <div style="font:700 18px Inter">Arun Selvam</div>
+        <div style="font:12px Inter;color:#6b675e;margin:2px 0 8px">arun.selvam@tvsmotor.com · +91 98430 xxxxx · Chennai</div>
+        <div style="display:flex;gap:6px">
+          <span style="border:1px solid oklch(52% 0.13 250);color:oklch(45% 0.13 250);border-radius:10px;padding:2px 8px;font:11px Inter">Alumni — Kaizen Institute '19</span>
+          <span style="border:1px solid oklch(52% 0.13 145);color:oklch(42% 0.13 145);border-radius:10px;padding:2px 8px;font:11px Inter">Corporate Contact — TVS Motor Co.</span>
+          <span style="border:1px solid oklch(52% 0.13 300);color:oklch(45% 0.13 300);border-radius:10px;padding:2px 8px;font:11px Inter">Referral Source</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;font:600 12px Inter"><span style="border:1px solid #1c1b19;border-radius:5px;padding:6px 10px">Log Activity</span><span style="border:1px solid #d9d7d2;border-radius:5px;padding:6px 10px;color:#6b675e">Edit</span></div>
+    </div>
+    <div style="display:flex;gap:0;border-bottom:1px solid #e4e2dd;padding:0 20px;font:12.5px Inter">
+      <div style="padding:10px 14px;border-bottom:2px solid #1c1b19;font-weight:600">Relationships</div>
+      <div style="padding:10px 14px;color:#8a877e">Timeline</div>
+      <div style="padding:10px 14px;color:#8a877e">Opportunities</div>
+      <div style="padding:10px 14px;color:#8a877e">Education History</div>
+      <div style="padding:10px 14px;color:#8a877e">Employment</div>
+      <div style="padding:10px 14px;color:#8a877e">Documents</div>
+      <div style="padding:10px 14px;color:#8a877e">Notes</div>
+    </div>
+    <div style="padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px">
+        <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">ORGANIZATIONS &amp; INSTITUTIONS</div>
+        <div style="font:12.5px Inter;line-height:1.9">TVS Motor Company <span style="color:#8a877e">— Employee, Buying Committee member</span><br>Kaizen Institute, Madurai Branch <span style="color:#8a877e">— Alumni (Course: Full-Stack Dev, 2019)</span></div>
+      </div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px">
+        <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">OPEN OPPORTUNITIES</div>
+        <div style="font:12.5px Inter;line-height:1.9">TVS Motor Co. — Corporate Training (Batch 4) <span style="color:oklch(50% 0.13 145)">₹22L · Negotiating</span></div>
+      </div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px;grid-column:1/-1">
+        <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">CROSS-VERTICAL BRIDGE (AI-flagged)</div>
+        <div style="font:12.5px Inter;color:#3a3833">Arun is the relationship bridge between Kaizen and TVS Motor Co: he referred the corporate training deal, TVS is now also evaluating cybersecurity and SAP work. One Person record ties all three opportunities together — see §38 cross-vertical journey.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font:12px 'JetBrains Mono';color:#6b675e">
+    <div><b style="color:#1c1b19">DATA</b><br>person_id, name, contact, roles[], org_links[], institution_links[], lead/opp refs, activity refs, owner, tags</div>
+    <div><b style="color:#1c1b19">ACTIONS</b><br>Add role, link organization, create opportunity, log activity, merge duplicate (admin only)</div>
+    <div><b style="color:#1c1b19">PERMISSIONS</b><br>All roles view; Sales/Admin edit; Telecaller/Counsellor edit own-owned only; delete = Admin only</div>
+    <div><b style="color:#1c1b19">STATES</b><br>Empty org list: "Not linked to any organization yet." No search results: suggest quick-create</div>
+  </div>
+</section>
+
+<!-- ============ 05 ORGANIZATIONS ============ -->
+<section id="orgs" style="padding-top:56px;border-top:1px solid #e4e2dd">
+  <div style="font:700 26px Inter;margin-bottom:4px">05 · Organizations</div>
+  <div style="font:14px Inter;color:#6b675e;max-width:900px;margin-bottom:20px">One record per organization even when it plays several roles at once (customer + employer + vendor). Institutions live in the same table (see §06) filtered as a subtype.</div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Organizations List</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:18px;margin-bottom:14px">
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+      <div style="flex:1;min-width:220px;border:1px solid #d9d7d2;border-radius:6px;padding:6px 10px;font:12px Inter;color:#9a978f">🔍 Search organizations…</div>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Type ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Industry ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Relationship status ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Owner ▾</span>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font:12.5px Inter">
+      <tr style="font:11px 'JetBrains Mono';color:#8a877e"><td style="padding:6px 8px 6px 0">ORGANIZATION</td><td>TYPE(S)</td><td>RELATIONSHIP</td><td>OPEN PIPELINE</td><td>OWNER</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">TVS Motor Company</td><td>Customer, Employer</td><td><span style="border:1px solid oklch(52% 0.13 145);color:oklch(42% 0.13 145);border-radius:10px;padding:2px 7px;font:10.5px Inter">Active</span></td><td>₹58L (3 opps)</td><td>Arjun K.</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">Sri Meenakshi College of Engg.</td><td>Institution, Training Partner</td><td><span style="border:1px solid oklch(55% 0.13 70);color:oklch(45% 0.13 70);border-radius:10px;padding:2px 7px;font:10.5px Inter">Prospect</span></td><td>₹0</td><td>Priya R.</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">Infosys BPM Ltd.</td><td>Vendor, Technology Client</td><td><span style="border:1px solid oklch(52% 0.13 145);color:oklch(42% 0.13 145);border-radius:10px;padding:2px 7px;font:10.5px Inter">Active</span></td><td>₹1.2Cr (1 opp)</td><td>Meera V.</td></tr>
+    </table>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Organization 360 — TVS Motor Company</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;overflow:hidden">
+    <div style="padding:18px 20px;border-bottom:1px solid #e4e2dd;display:flex;gap:16px;align-items:flex-start">
+      <div style="width:52px;height:52px;border-radius:8px;background:repeating-linear-gradient(45deg,#eeece7,#eeece7 4px,#f4f3f0 4px,#f4f3f0 8px)"></div>
+      <div style="flex:1">
+        <div style="font:700 18px Inter">TVS Motor Company</div>
+        <div style="font:12px Inter;color:#6b675e;margin:2px 0 8px">Automotive · Chennai HQ · 3 locations</div>
+        <div style="display:flex;gap:6px">
+          <span style="border:1px solid oklch(52% 0.13 145);color:oklch(42% 0.13 145);border-radius:10px;padding:2px 8px;font:11px Inter">Customer</span>
+          <span style="border:1px solid oklch(52% 0.13 250);color:oklch(45% 0.13 250);border-radius:10px;padding:2px 8px;font:11px Inter">Employer of 4 alumni</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;font:600 12px Inter"><span style="border:1px solid #1c1b19;border-radius:5px;padding:6px 10px">New Opportunity</span><span style="border:1px solid #d9d7d2;border-radius:5px;padding:6px 10px;color:#6b675e">Edit</span></div>
+    </div>
+    <div style="display:flex;border-bottom:1px solid #e4e2dd;padding:0 20px;font:12.5px Inter">
+      <div style="padding:10px 14px;border-bottom:2px solid #1c1b19;font-weight:600">Overview</div>
+      <div style="padding:10px 14px;color:#8a877e">Contacts</div>
+      <div style="padding:10px 14px;color:#8a877e">Opportunities</div>
+      <div style="padding:10px 14px;color:#8a877e">Contracts &amp; Payments</div>
+      <div style="padding:10px 14px;color:#8a877e">Projects</div>
+      <div style="padding:10px 14px;color:#8a877e">MoUs</div>
+      <div style="padding:10px 14px;color:#8a877e">Timeline</div>
+    </div>
+    <div style="padding:20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px">
+        <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">HIERARCHY</div>
+        <div style="font:12.5px Inter;line-height:1.7">TVS Motor Company<br><span style="padding-left:14px;color:#6b675e">↳ TVS Chennai Plant</span><br><span style="padding-left:14px;color:#6b675e">↳ TVS HR / L&amp;D Dept.</span></div>
+      </div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px">
+        <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">BUYING COMMITTEE</div>
+        <div style="font:12.5px Inter;line-height:1.7">Arun Selvam — Champion<br>Deputy GM, L&amp;D — Economic Buyer</div>
+      </div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px">
+        <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">RELATIONSHIP HEALTH</div>
+        <div style="font:12.5px Inter;line-height:1.7">Strong <span style="color:oklch(50% 0.13 145)">●●●●○</span><br>Last activity: 2 days ago</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font:12px 'JetBrains Mono';color:#6b675e">
+    <div><b style="color:#1c1b19">DATA</b><br>org_id, name, types[], industry, locations[], parent_org_id, contacts[], owner, health_score</div>
+    <div><b style="color:#1c1b19">ACTIONS</b><br>Add contact, link parent/subsidiary, create opportunity/MoU/project, log activity</div>
+    <div><b style="color:#1c1b19">PERMISSIONS</b><br>Finance tab (contracts/payments) hidden from Telecaller, Trainer, Counsellor</div>
+    <div><b style="color:#1c1b19">STATES</b><br>No subsidiaries: hierarchy card hidden. No buying committee: prompt "Add contacts to this deal"</div>
+  </div>
+</section>
+
+<!-- ============ 06 INSTITUTIONS ============ -->
+<section id="institutions" style="padding-top:56px;border-top:1px solid #e4e2dd">
+  <div style="font:700 26px Inter;margin-bottom:4px">06 · Institutions — Geospatial Network</div>
+  <div style="font:14px Inter;color:#6b675e;max-width:900px;margin-bottom:6px">The flagship prospecting flow. Institution = Organization subtype with lat/lng + academic metadata. Default view: Tamil Nadu → Madurai district.</div>
+  <div style="border:1px solid oklch(80% 0.05 70);background:oklch(97% 0.02 70);border-radius:6px;padding:10px 14px;font:12px Inter;color:#5a4a20;max-width:900px;margin-bottom:22px"><b>Critical journey (§37):</b> Map defaults to Madurai → filter "No relationship" → click a college marker → drawer opens → "Open Institution 360" → notice "no activity in 74 days" → AI suggests a follow-up → Create Activity → timeline updates. Traced across the three screens below.</div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Institutions List (table view, alt. to map)</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px;margin-bottom:24px">
+    <table style="width:100%;border-collapse:collapse;font:12.5px Inter">
+      <tr style="font:11px 'JetBrains Mono';color:#8a877e"><td style="padding:6px 8px 6px 0">INSTITUTION</td><td>TYPE</td><td>DISTRICT</td><td>RELATIONSHIP</td><td>MoU</td><td>LAST ACTIVITY</td><td>PRIORITY</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">Sri Meenakshi College of Engg.</td><td>College</td><td>Madurai</td><td><span style="border:1px solid oklch(55% 0.13 70);color:oklch(45% 0.13 70);border-radius:10px;padding:2px 7px;font:10.5px Inter">Prospect</span></td><td>—</td><td>74 days ago</td><td>High</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">Fatima College</td><td>College</td><td>Madurai</td><td><span style="border:1px solid #b6b2a8;color:#8a877e;border-radius:10px;padding:2px 7px;font:10.5px Inter">No relationship</span></td><td>—</td><td>Never</td><td>Medium</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">Madurai Kamaraj University</td><td>University</td><td>Madurai</td><td><span style="border:1px solid oklch(52% 0.13 300);color:oklch(45% 0.13 300);border-radius:10px;padding:2px 7px;font:10.5px Inter">MoU</span></td><td><span style="border:1px solid oklch(52% 0.13 145);color:oklch(42% 0.13 145);border-radius:10px;padding:2px 7px;font:10.5px Inter">Active</span></td><td>5 days ago</td><td>High</td></tr>
+    </table>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Institution Map — default state (Madurai)</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;overflow:hidden;margin-bottom:8px">
+    <!-- top bar -->
+    <div style="border-bottom:1px solid #e4e2dd;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="border:1px solid #1c1b19;border-radius:14px;padding:5px 12px;font:12px Inter;font-weight:600">Tamil Nadu ▾</span>
+      <span style="border:1px solid #1c1b19;border-radius:14px;padding:5px 12px;font:12px Inter;font-weight:600">Madurai ▾</span>
+      <div style="flex:1;min-width:180px;border:1px solid #d9d7d2;border-radius:6px;padding:6px 10px;font:12px Inter;color:#9a978f">🔍 Search institution…</div>
+      <span style="border:1px solid #d9d7d2;border-radius:6px;padding:5px 9px;font:12px Inter;color:#6b675e">− ⊡ +</span>
+    </div>
+    <div style="display:flex">
+      <!-- filter panel -->
+      <div style="width:210px;flex:none;border-right:1px solid #e4e2dd;padding:14px;font:12px Inter">
+        <div style="font:700 10.5px 'JetBrains Mono';color:#8a877e;margin-bottom:6px">INSTITUTION TYPE</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px;color:#3a3833">☐ School ☑ College ☑ University ☐ Other</div>
+        <div style="font:700 10.5px 'JetBrains Mono';color:#8a877e;margin-bottom:6px">MANAGEMENT</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px;color:#3a3833">☐ Government ☐ Aided ☑ Private ☐ Other</div>
+        <div style="font:700 10.5px 'JetBrains Mono';color:#8a877e;margin-bottom:6px">RELATIONSHIP</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">
+          <span style="background:#1c1b19;color:#fff;border-radius:4px;padding:3px 6px">☑ No relationship</span>
+          <span style="color:#3a3833">☐ Prospect ☐ Contacted ☐ Active opportunity ☐ Active relationship ☐ MoU ☐ Inactive</span>
+        </div>
+        <div style="font:700 10.5px 'JetBrains Mono';color:#8a877e;margin-bottom:6px">ACTIVITY RECENCY</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px;color:#3a3833">☐ Active recently ☐ &gt;30d ☐ &gt;90d ☐ &gt;180d ☑ Never contacted</div>
+        <div style="font:700 10.5px 'JetBrains Mono';color:#8a877e;margin-bottom:6px">STRATEGIC PRIORITY</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px;color:#3a3833">☐ High ☐ Medium ☐ Low</div>
+        <div style="font:700 10.5px 'JetBrains Mono';color:#8a877e;margin-bottom:6px">DISTANCE</div>
+        <div style="color:#3a3833">Radius: 15 km around <span style="color:#6b675e">selected point ▾</span></div>
+      </div>
+      <!-- map -->
+      <div style="flex:1;position:relative;min-height:380px;background:repeating-linear-gradient(0deg,#eef0ec,#eef0ec 22px,#e6e9e2 22px,#e6e9e2 23px),repeating-linear-gradient(90deg,#eef0ec,#eef0ec 22px,#e6e9e2 22px,#e6e9e2 23px)">
+        <div style="position:absolute;top:10px;left:10px;background:#fff;border:1px solid #d9d7d2;border-radius:6px;padding:8px 12px;font:12px Inter"><b>124</b> institutions match your filters</div>
+        <div style="position:absolute;top:56%;left:38%;width:16px;height:16px;border-radius:50%;background:#b6b2a8;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div>
+        <div style="position:absolute;top:34%;left:52%;width:16px;height:16px;border-radius:2px;background:#b6b2a8;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div>
+        <div style="position:absolute;top:64%;left:60%;width:18px;height:18px;border-radius:50%;background:#1c1b19;border:2px solid #fff;box-shadow:0 0 0 3px oklch(70% 0.10 70)"></div>
+        <div style="position:absolute;top:28%;left:24%;width:16px;height:16px;border-radius:2px;background:#b6b2a8;border:2px solid #fff"></div>
+        <div style="position:absolute;top:74%;left:30%;width:22px;height:22px;border-radius:50%;background:#3a3833;color:#fff;font:10px Inter;display:flex;align-items:center;justify-content:center;border:2px solid #fff">6</div>
+        <div style="position:absolute;bottom:10px;left:10px;background:#fff;border:1px solid #d9d7d2;border-radius:6px;padding:8px 12px;font:11px Inter;display:flex;gap:12px">
+          <span>● School</span><span>■ College</span><span>◆ University</span><span style="margin-left:8px">Ring = relationship state</span>
+        </div>
+      </div>
+      <!-- drawer -->
+      <div style="width:280px;flex:none;border-left:1px solid #e4e2dd;padding:16px;font:12px Inter">
+        <div style="font:700 14px Inter;margin-bottom:2px">Sri Meenakshi College of Engineering</div>
+        <div style="color:#6b675e;margin-bottom:8px">College · Madurai · 8.2 km away</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px">
+          <span style="border:1px solid oklch(55% 0.13 70);color:oklch(45% 0.13 70);border-radius:10px;padding:2px 7px;font:10.5px Inter">Prospect</span>
+          <span style="border:1px solid #b6b2a8;color:#8a877e;border-radius:10px;padding:2px 7px;font:10.5px Inter">No MoU</span>
+          <span style="border:1px solid #1c1b19;color:#1c1b19;border-radius:10px;padding:2px 7px;font:10.5px Inter">High priority</span>
+        </div>
+        <div style="border-top:1px solid #eeece7;padding-top:10px;margin-bottom:10px;color:#3a3833">Last activity: <b>74 days ago</b><br>Owner: Priya R.</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+          <span style="border:1px solid #d9d7d2;border-radius:5px;padding:5px 8px">Call</span><span style="border:1px solid #d9d7d2;border-radius:5px;padding:5px 8px">WhatsApp</span><span style="border:1px solid #d9d7d2;border-radius:5px;padding:5px 8px">Email</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="border:1px solid #1c1b19;border-radius:5px;padding:6px 8px;text-align:center;font-weight:600">Create Activity</span>
+          <a href="#inst-360" style="border:1px solid #1c1b19;background:#1c1b19;color:#fff;border-radius:5px;padding:6px 8px;text-align:center;font-weight:600">Open Institution 360 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font:12px 'JetBrains Mono';color:#6b675e">
+    <div><b style="color:#1c1b19">DATA</b><br>institution_id, name, type, lat, lng, district, management_type, relationship_status, mou_status, last_activity_at, strategic_priority</div>
+    <div><b style="color:#1c1b19">ACTIONS</b><br>fetch institutions, apply filters, click marker→select+drawer, cluster expand, open 360, create activity/opportunity from drawer</div>
+    <div><b style="color:#1c1b19">MARKERS</b><br>Shape = type (● school ■ college ◆ university). Ring color = relationship state. Cluster badge at zoom-out shows count</div>
+    <div><b style="color:#1c1b19">RESPONSIVE</b><br>Tablet: filters collapse to a slide-out panel. Mobile: filter button + bottom sheet replaces the right drawer</div>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833" id="inst-360">Institution 360 — Sri Meenakshi College of Engineering</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;overflow:hidden;margin-bottom:24px">
+    <div style="padding:18px 20px;border-bottom:1px solid #e4e2dd;display:flex;gap:16px;align-items:flex-start">
+      <div style="flex:1">
+        <div style="font:700 18px Inter">Sri Meenakshi College of Engineering</div>
+        <div style="font:12px Inter;color:#6b675e;margin:2px 0 8px">College · Madurai District · AISHE C-41287</div>
+        <div style="display:flex;gap:6px">
+          <span style="border:1px solid oklch(55% 0.13 70);color:oklch(45% 0.13 70);border-radius:10px;padding:2px 8px;font:11px Inter">Prospect</span>
+          <span style="border:1px solid #b6b2a8;color:#8a877e;border-radius:10px;padding:2px 8px;font:11px Inter">No MoU</span>
+          <span style="border:1px solid #1c1b19;color:#1c1b19;border-radius:10px;padding:2px 8px;font:11px Inter">High priority</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;font:600 12px Inter;flex-wrap:wrap;max-width:340px">
+        <span style="border:1px solid #d9d7d2;border-radius:5px;padding:6px 10px;color:#6b675e">Call</span><span style="border:1px solid #d9d7d2;border-radius:5px;padding:6px 10px;color:#6b675e">WhatsApp</span><span style="border:1px solid #d9d7d2;border-radius:5px;padding:6px 10px;color:#6b675e">Email</span>
+        <span style="border:1px solid #1c1b19;border-radius:5px;padding:6px 10px">Create MoU</span>
+        <span style="border:1px solid #1c1b19;background:#1c1b19;color:#fff;border-radius:5px;padding:6px 10px">Create Activity</span>
+      </div>
+    </div>
+    <div style="display:flex;border-bottom:1px solid #e4e2dd;padding:0 20px;font:12.5px Inter;flex-wrap:wrap">
+      <div style="padding:10px 14px;border-bottom:2px solid #1c1b19;font-weight:600">Overview</div>
+      <div style="padding:10px 14px;color:#8a877e">Timeline</div>
+      <div style="padding:10px 14px;color:#8a877e">Contacts</div>
+      <div style="padding:10px 14px;color:#8a877e">MoUs</div>
+      <div style="padding:10px 14px;color:#8a877e">Opportunities</div>
+      <div style="padding:10px 14px;color:#8a877e">Programs</div>
+      <div style="padding:10px 14px;color:#8a877e">Students / Alumni</div>
+      <div style="padding:10px 14px;color:#8a877e">Documents</div>
+    </div>
+    <div style="padding:20px;display:grid;grid-template-columns:1.3fr 1fr;gap:16px">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px">
+          <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">INSTITUTION PROFILE</div>
+          <div style="font:12.5px Inter;line-height:1.8">Type: College &nbsp;·&nbsp; Management: Private &nbsp;·&nbsp; Est. 1994<br>Location: Melur Road, Madurai — 625107<br>Students: ~4,800 &nbsp;·&nbsp; Departments: 9 (incl. CSE, ECE, Mech)<br>UDISE: N/A &nbsp;·&nbsp; AISHE: C-41287</div>
+        </div>
+        <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px">
+          <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">RELATIONSHIP SUMMARY</div>
+          <div style="font:12.5px Inter;line-height:1.8">Owner: Priya Ramesh &nbsp;·&nbsp; Strength: Weak ●●○○○<br>Last activity: <b>74 days ago</b> (campus visit)<br>Open opportunities: 0 &nbsp;·&nbsp; Pipeline value: ₹0<br>MoU status: None</div>
+        </div>
+      </div>
+      <div style="border:1px solid oklch(80% 0.05 70);background:oklch(97% 0.02 70);border-radius:6px;padding:14px">
+        <div style="font:700 11px 'JetBrains Mono';color:oklch(45% 0.10 70);margin-bottom:8px">AI INSIGHT</div>
+        <div style="font:700 13px Inter;margin-bottom:6px">High potential institution</div>
+        <div style="font:12px Inter;color:#3a3833;margin-bottom:8px">Reasons:</div>
+        <ul style="margin:0 0 10px;padding-left:18px;font:12px Inter;color:#3a3833;line-height:1.7">
+          <li>4,800 students across 3 relevant departments</li>
+          <li>12 km from an existing active partner</li>
+          <li>No active MoU</li>
+          <li>3 previous activities logged</li>
+          <li>Last activity 74 days ago</li>
+        </ul>
+        <div style="font:12px Inter;color:#3a3833;margin-bottom:8px"><b>Recommended next action:</b> Schedule a meeting with the Placement Officer.</div>
+        <span style="border:1px solid #1c1b19;background:#1c1b19;color:#fff;border-radius:5px;padding:6px 10px;font:600 12px Inter">Create Activity from this</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Institution Activity Timeline (filtered, chronological)</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:18px;margin-bottom:14px">
+    <div style="display:flex;gap:8px;margin-bottom:14px">
+      <span style="border:1px solid #1c1b19;border-radius:14px;padding:4px 10px;font:11.5px Inter;font-weight:600">All</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:4px 10px;font:11.5px Inter;color:#6b675e">Calls</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:4px 10px;font:11.5px Inter;color:#6b675e">Meetings</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:4px 10px;font:11.5px Inter;color:#6b675e">Campus Events</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:4px 10px;font:11.5px Inter;color:#6b675e">MoU</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:4px 10px;font:11.5px Inter;color:#6b675e">Proposals</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0">
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #eeece7;background:oklch(97% 0.03 145)">
+        <div style="width:90px;flex:none;font:11px 'JetBrains Mono';color:oklch(45% 0.13 145)">Just now</div>
+        <div style="flex:1;font:12.5px Inter"><b>Meeting scheduled</b> — Placement Officer, on-campus &nbsp;<span style="border:1px solid oklch(52% 0.13 145);color:oklch(42% 0.13 145);border-radius:10px;padding:1px 6px;font:10px Inter">NEW</span><br><span style="color:#6b675e">Next action: confirm agenda, bring corporate training deck · Owner: Priya R.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #eeece7">
+        <div style="width:90px;flex:none;font:11px 'JetBrains Mono';color:#8a877e">74 days ago</div>
+        <div style="flex:1;font:12.5px Inter"><b>Campus visit</b> — general orientation, met admin office<br><span style="color:#6b675e">Outcome: interested, no decision maker present · Owner: Priya R.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #eeece7">
+        <div style="width:90px;flex:none;font:11px 'JetBrains Mono';color:#8a877e">5 mo. ago</div>
+        <div style="flex:1;font:12.5px Inter"><b>Cold call</b> — introduced Kaizen placement services<br><span style="color:#6b675e">Outcome: asked to send brochure · Owner: Priya R.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #eeece7">
+        <div style="width:90px;flex:none;font:11px 'JetBrains Mono';color:#8a877e">8 mo. ago</div>
+        <div style="flex:1;font:12.5px Inter"><b>First contact</b> — inbound enquiry via website<br><span style="color:#6b675e">Owner: Priya R.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font:12px 'JetBrains Mono';color:#6b675e">
+    <div><b style="color:#1c1b19">DATA (360 + timeline)</b><br>institution profile fields, relationship_owner, health_score, ai_insight{reasons[],next_action}, activity[]{type,date,participants,owner,outcome,notes,attachments,next_action}</div>
+    <div><b style="color:#1c1b19">EVENTS GENERATED</b><br>activity.created → timeline updates, relationship.last_activity_at refreshed, opportunity.created (optional), notification to owner</div>
+    <div><b style="color:#1c1b19">PERMISSIONS</b><br>Counsellor/BD: view+create for owned/unowned institutions in their branch. Admin: reassign owner. Finance: view only</div>
+    <div><b style="color:#1c1b19">STATES</b><br>Empty timeline: "No activity yet — log the first touchpoint." Loading: skeleton rows. No search results on map: "0 institutions match — widen your filters"</div>
+  </div>
+</section>
+
+<!-- ============ 07 MoUs ============ -->
+<section id="mous" style="padding-top:56px;border-top:1px solid #e4e2dd">
+  <div style="font:700 26px Inter;margin-bottom:4px">07 · MoUs</div>
+  <div style="font:14px Inter;color:#6b675e;max-width:900px;margin-bottom:20px">First-class record, not a Yes/No flag on the institution. Full lifecycle: Proposed → Negotiating → Approved → Signed → Active → Expiring → Expired / Renewed.</div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">MoU List</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:18px;margin-bottom:24px">
+    <div style="display:flex;gap:8px;margin-bottom:14px">
+      <span style="border:1px solid #1c1b19;border-radius:14px;padding:5px 12px;font:12px Inter;font-weight:600">All</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Active</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:oklch(45% 0.13 70)">Expiring soon</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Expired</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">No MoU (institutions)</span>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font:12.5px Inter">
+      <tr style="font:11px 'JetBrains Mono';color:#8a877e"><td style="padding:6px 8px 6px 0">MoU ID</td><td>INSTITUTION / ORG</td><td>VERTICAL</td><td>STATUS</td><td>EXPIRY</td><td>OWNER</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font:11.5px 'JetBrains Mono'">KAIZEN-2026-014</td><td style="font-weight:600">Madurai Kamaraj University</td><td>Education / Placement</td><td><span style="border:1px solid oklch(52% 0.13 145);color:oklch(42% 0.13 145);border-radius:10px;padding:2px 7px;font:10.5px Inter">Active</span></td><td>Mar 2027</td><td>Priya R.</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font:11.5px 'JetBrains Mono'">KAIZEN-2024-031</td><td style="font-weight:600">Velammal Engineering College</td><td>Placement</td><td><span style="border:1px solid oklch(55% 0.13 70);color:oklch(45% 0.13 70);border-radius:10px;padding:2px 7px;font:10.5px Inter">Expiring — 4 days</span></td><td>Aug 23, 2026</td><td>Priya R.</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font:11.5px 'JetBrains Mono'">KAIZEN-2025-009</td><td style="font-weight:600">Infosys BPM Ltd.</td><td>Corp. Training</td><td><span style="border:1px solid #6b675e;color:#6b675e;border-radius:10px;padding:2px 7px;font:10.5px Inter">Negotiating</span></td><td>—</td><td>Meera V.</td></tr>
+    </table>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">MoU Detail — KAIZEN-2024-031, Velammal Engineering College</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+    <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px">
+      <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">MoU DETAILS</div>
+      <div style="font:12.5px Inter;line-height:1.9">Scope: Campus placement drives, internships<br>Signed: Aug 23, 2024 &nbsp;·&nbsp; Effective: Sep 1, 2024 &nbsp;·&nbsp; Expiry: <b style="color:oklch(45% 0.13 70)">Aug 23, 2026</b><br>Commercial value: ₹0 (non-commercial MoU) &nbsp;·&nbsp; Strategic value: High<br>Document: <span style="text-decoration:underline">MoU_Velammal_2024.pdf</span></div>
+    </div>
+    <div style="border:1px solid oklch(80% 0.05 70);background:oklch(97% 0.02 70);border-radius:6px;padding:14px">
+      <div style="font:700 11px 'JetBrains Mono';color:oklch(45% 0.10 70);margin-bottom:8px">RENEWAL WORKFLOW</div>
+      <div style="font:12.5px Inter;color:#3a3833;margin-bottom:10px">Expires in 4 days. Draft renewal terms with Placement Officer before Aug 23.</div>
+      <span style="border:1px solid #1c1b19;background:#1c1b19;color:#fff;border-radius:5px;padding:6px 10px;font:600 12px Inter">Start Renewal</span>
+    </div>
+    <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px;grid-column:1/-1">
+      <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">ACTIVITIES COVERED UNDER THIS MoU</div>
+      <div style="font:12.5px Inter;line-height:1.8">3 placement drives (2024–25) &nbsp;·&nbsp; 1 faculty development workshop &nbsp;·&nbsp; 12 internship placements</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font:12px 'JetBrains Mono';color:#6b675e">
+    <div><b style="color:#1c1b19">DATA</b><br>mou_id, institution_or_org_id, status, signed_date, effective_date, expiry_date, scope, vertical, owner, document_url, commercial_value, activities_covered[]</div>
+    <div><b style="color:#1c1b19">ACTIONS</b><br>Create MoU (from Institution/Org 360), advance stage, upload signed doc, start renewal (clones into new draft MoU linked as renewal_of)</div>
+    <div><b style="color:#1c1b19">EVENTS</b><br>mou.expiring_soon (30/7/1 day alerts to owner), mou.signed → institution.mou_status updated, mou.renewed → old MoU archived</div>
+    <div><b style="color:#1c1b19">PERMISSIONS</b><br>Create/edit: Sales, Admin, Partnerships. Approve/sign-off: Admin, Founder only</div>
+  </div>
+</section>
+
+<!-- ============ 08 LEADS & OPPORTUNITIES ============ -->
+<section id="leads-opps" style="padding-top:56px;border-top:1px solid #e4e2dd">
+  <div style="font:700 26px Inter;margin-bottom:4px">08 · Leads &amp; Opportunities</div>
+  <div style="font:14px Inter;color:#6b675e;max-width:900px;margin-bottom:20px">Universal lead intake feeding a shared opportunity pipeline. Macro stages are shared across verticals; each vertical customizes micro-stages and fields.</div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Leads List</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:18px;margin-bottom:24px">
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Source ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Vertical ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Stage ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Owner ▾</span>
+      <span style="border:1px solid #d9d7d2;border-radius:14px;padding:5px 12px;font:12px Inter;color:#6b675e">Score ▾</span>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font:12.5px Inter">
+      <tr style="font:11px 'JetBrains Mono';color:#8a877e"><td style="padding:6px 8px 6px 0">LEAD</td><td>SOURCE</td><td>VERTICAL</td><td>SCORE</td><td>STAGE</td><td>OWNER</td><td>NEXT ACTION</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">Deepa Krishnan</td><td>Website</td><td>Education</td><td>78</td><td>New Enquiry</td><td>Kavya S.</td><td>Call today</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">TVS Motor Co. (Cybersecurity)</td><td>Referral (Arun Selvam)</td><td>Cybersecurity</td><td>91</td><td>Qualified</td><td>Arjun K.</td><td>Send proposal</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:8px 8px 8px 0;font-weight:600">Fatima College</td><td>Campus visit</td><td>Education / Placement</td><td>52</td><td>Contacted</td><td>Priya R.</td><td>Follow up</td></tr>
+    </table>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Opportunity Pipeline — Kanban</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px;overflow-x:auto;margin-bottom:24px">
+    <div style="display:flex;gap:10px;min-width:1200px">
+      <div style="width:140px;flex:none"><div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">DISCOVERED (12)</div><div style="border:1px solid #e4e2dd;border-radius:6px;padding:8px;font:11.5px Inter;margin-bottom:8px">Fatima College<br><span style="color:#8a877e">₹—</span></div></div>
+      <div style="width:140px;flex:none"><div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">QUALIFIED (9)</div><div style="border:1px solid #e4e2dd;border-radius:6px;padding:8px;font:11.5px Inter;margin-bottom:8px">TVS Motor — Cyber Audit<br><span style="color:#8a877e">₹18L</span></div></div>
+      <div style="width:140px;flex:none"><div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:8px">PROPOSED (7)</div><div style="border:1px solid #e4e2dd;border-radius:6px;padding:8px;font:11.5px Inter;margin-bottom:8px">Infosys BPM — SAP Rollout<br><span style="color:#8a877e">₹95L</span></div></div>
+      <div style="width:150px;flex:none;background:oklch(97% 0.02 250);border-radius:6px;padding:6px">
+        <div style="font:700 11px 'JetBrains Mono';color:oklch(45% 0.13 250);margin-bottom:8px">NEGOTIATING (5)</div>
+        <div style="border:1px solid oklch(70% 0.08 250);background:#fff;border-radius:6px;padding:8px;font:11.5px Inter;margin-bottom:8px">TVS Motor — Corp. Training Batch 4<br><span style="color:oklch(45% 0.13 145)">₹22L · 70%</span><br><span style="color:#8a877e">Arun Selvam</span></div>
+      </div>
+      <div style="width:140px;flex:none"><div style="font:700 11px 'JetBrains Mono';color:oklch(45% 0.13 145)">WON (this qtr, 18)</div><div style="border:1px solid #e4e2dd;border-radius:6px;padding:8px;font:11.5px Inter;margin-bottom:8px">Kaizen Institute B2C — Full Stack Batch 12<br><span style="color:#8a877e">₹6.4L</span></div></div>
+      <div style="width:140px;flex:none"><div style="font:700 11px 'JetBrains Mono';color:#8a877e">DELIVERING (11)</div><div style="border:1px solid #e4e2dd;border-radius:6px;padding:8px;font:11.5px Inter;margin-bottom:8px">Madurai Kamaraj Univ. — FDP Series<br><span style="color:#8a877e">on track</span></div></div>
+      <div style="width:150px;flex:none"><div style="font:700 11px 'JetBrains Mono';color:#8a877e">RENEW / EXPAND (6)</div><div style="border:1px solid #e4e2dd;border-radius:6px;padding:8px;font:11.5px Inter;margin-bottom:8px">Infosys BPM — Cross-sell Cybersecurity<br><span style="color:#8a877e">₹30L est.</span></div></div>
+    </div>
+    <div style="margin-top:10px;font:11px Inter;color:#8a877e">List view toggle available top-right (table with same fields, sortable/filterable) — same records, same actions.</div>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Opportunity Detail — TVS Motor, Corporate Training Batch 4</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;overflow:hidden;margin-bottom:14px">
+    <div style="padding:16px 20px;border-bottom:1px solid #e4e2dd;display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font:700 17px Inter">TVS Motor Co. — Corporate Training Batch 4</div><div style="font:12px Inter;color:#6b675e">Vertical: Corporate Training · Owner: Arjun K. · Stage: Negotiating (70%)</div></div>
+      <div style="display:flex;gap:8px;font:600 12px Inter"><span style="border:1px solid #d9d7d2;border-radius:5px;padding:6px 10px;color:#6b675e">Log Activity</span><span style="border:1px solid #1c1b19;background:#1c1b19;color:#fff;border-radius:5px;padding:6px 10px">Mark Won</span></div>
+    </div>
+    <div style="padding:18px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:12px;font:12px Inter;line-height:1.8"><b style="font:700 10.5px 'JetBrains Mono';color:#8a877e;display:block;margin-bottom:6px">DEAL</b>Value: ₹22L<br>Expected close: Sep 2, 2026<br>Source: Referral — Arun Selvam</div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:12px;font:12px Inter;line-height:1.8"><b style="font:700 10.5px 'JetBrains Mono';color:#8a877e;display:block;margin-bottom:6px">RELATED</b>Account: TVS Motor Co.<br>Contact: Arun Selvam<br>Institution link: Kaizen Institute (alumni referral)</div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:12px;font:12px Inter;line-height:1.8"><b style="font:700 10.5px 'JetBrains Mono';color:#8a877e;display:block;margin-bottom:6px">DELIVERY CHAIN</b>Proposal: sent ✓<br>Contract: pending<br>Project: not started</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font:12px 'JetBrains Mono';color:#6b675e">
+    <div><b style="color:#1c1b19">DATA</b><br>opportunity_id, account_id, contact_id, vertical, product, owner, stage, value, probability, close_date, source, proposal/contract/payment/project refs</div>
+    <div><b style="color:#1c1b19">ACTIONS</b><br>Drag between stages, log activity, generate proposal, mark won/lost (requires reason on lost), spin up project on won</div>
+    <div><b style="color:#1c1b19">MACRO STAGES</b><br>Discovered → Engaged → Qualified → Proposed → Negotiating → Won/Lost → Delivering → Outcome → Renew/Expand/Refer (shared); micro-stages vary by vertical (§Vertical Pipelines, Phase 2)</div>
+    <div><b style="color:#1c1b19">PERMISSIONS</b><br>Value/probability editable by owner + Admin. Mark Won/Lost: owner or manager. Telecaller: create lead only, no opportunity edit</div>
+  </div>
+</section>
+
+<!-- ============ 09 EDUCATION ============ -->
+<section id="education" style="padding-top:56px;border-top:1px solid #e4e2dd">
+  <div style="font:700 26px Inter;margin-bottom:4px">09 · Education</div>
+  <div style="font:14px Inter;color:#6b675e;max-width:900px;margin-bottom:20px">The existing Education CRM, preserved and hung off the universal Person record. Student is a role, not a separate identity.</div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Admissions Pipeline</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px;margin-bottom:24px;overflow-x:auto">
+    <div style="display:flex;gap:10px;min-width:900px;align-items:center">
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:10px 14px;font:12px Inter;text-align:center">New Enquiry<br><b>34</b></div><div style="color:#b6b2a8">→</div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:10px 14px;font:12px Inter;text-align:center">Counselled<br><b>21</b></div><div style="color:#b6b2a8">→</div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:10px 14px;font:12px Inter;text-align:center">Course Selected<br><b>15</b></div><div style="color:#b6b2a8">→</div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:10px 14px;font:12px Inter;text-align:center">Follow-up<br><b>9</b></div><div style="color:#b6b2a8">→</div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:10px 14px;font:12px Inter;text-align:center">Seat Attended<br><b>7</b></div><div style="color:#b6b2a8">→</div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:10px 14px;font:12px Inter;text-align:center">Registration<br><b>6</b></div><div style="color:#b6b2a8">→</div>
+      <div style="border:1px solid oklch(52% 0.13 145);background:oklch(97% 0.03 145);border-radius:6px;padding:10px 14px;font:12px Inter;text-align:center;color:oklch(42% 0.13 145)">Enrolled<br><b>5</b></div>
+    </div>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Course Recommendation Engine — Deepa Krishnan</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:18px;margin-bottom:24px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+    <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px">
+      <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:10px">WEIGHTED MATCH FACTORS</div>
+      <div style="display:flex;flex-direction:column;gap:7px; font:11.5px Inter">
+        <div style="display:flex;align-items:center;gap:8px;font:11.5px Inter"><span style="width:110px;color:#6b675e">Interest Match</span><div style="flex:1;background:#eeece7;border-radius:3px;height:8px"><div style="width:30%;height:100%;background:#1c1b19;border-radius:3px"></div></div><span>30%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font:11.5px Inter"><span style="width:110px;color:#6b675e">Qualification</span><div style="flex:1;background:#eeece7;border-radius:3px;height:8px"><div style="width:20%;height:100%;background:#1c1b19;border-radius:3px"></div></div><span>20%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font:11.5px Inter"><span style="width:110px;color:#6b675e">Career Goal</span><div style="flex:1;background:#eeece7;border-radius:3px;height:8px"><div style="width:20%;height:100%;background:#1c1b19;border-radius:3px"></div></div><span>20%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font:11.5px Inter"><span style="width:110px;color:#6b675e">Duration</span><div style="flex:1;background:#eeece7;border-radius:3px;height:8px"><div style="width:15%;height:100%;background:#1c1b19;border-radius:3px"></div></div><span>15%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font:11.5px Inter"><span style="width:110px;color:#6b675e">Difficulty</span><div style="flex:1;background:#eeece7;border-radius:3px;height:8px"><div style="width:10%;height:100%;background:#1c1b19;border-radius:3px"></div></div><span>10%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font:11.5px Inter"><span style="width:110px;color:#6b675e">Industry</span><div style="flex:1;background:#eeece7;border-radius:3px;height:8px"><div style="width:5%;height:100%;background:#1c1b19;border-radius:3px"></div></div><span>5%</span></div>
+      </div>
+      <div style="font:11px Inter;color:#8a877e;margin-top:10px">≥85% Recommended · 40–84% Available · &lt;40% Hidden</div>
+    </div>
+    <div style="border:1px solid #e4e2dd;border-radius:6px;padding:14px">
+      <div style="font:700 11px 'JetBrains Mono';color:#8a877e;margin-bottom:10px">RESULTS</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font:12px Inter">
+        <div style="display:flex;justify-content:space-between;border:1px solid oklch(52% 0.13 145);border-radius:5px;padding:7px 10px;background:oklch(97% 0.03 145)"><span>Full-Stack Web Development</span><b style="color:oklch(42% 0.13 145)">91% Recommended</b></div>
+        <div style="display:flex;justify-content:space-between;border:1px solid #d9d7d2;border-radius:5px;padding:7px 10px"><span>UI/UX Design Foundations</span><b style="color:#6b675e">67% Available</b></div>
+        <div style="display:flex;justify-content:space-between;border:1px solid #d9d7d2;border-radius:5px;padding:7px 10px"><span>Data Analytics with Python</span><b style="color:#6b675e">54% Available</b></div>
+        <div style="display:flex;justify-content:space-between;border:1px dashed #d9d7d2;border-radius:5px;padding:7px 10px;color:#c7c4bb"><span>SAP ABAP Fundamentals</span><b>28% Hidden</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Student 360 — Deepa Krishnan</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;overflow:hidden;margin-bottom:24px">
+    <div style="padding:16px 20px;border-bottom:1px solid #e4e2dd;display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font:700 17px Inter">Deepa Krishnan</div><div style="font:12px Inter;color:#6b675e">Kaizen Institute — Madurai Branch · Full-Stack Web Development · Enrolled</div></div>
+      <div style="font:12px Inter;color:#6b675e">Links to <a href="#people">canonical Person record →</a></div>
+    </div>
+    <div style="display:flex;border-bottom:1px solid #e4e2dd;padding:0 20px;font:12.5px Inter;flex-wrap:wrap">
+      <div style="padding:10px 14px;border-bottom:2px solid #1c1b19;font-weight:600">Progress</div>
+      <div style="padding:10px 14px;color:#8a877e">Personal Info</div>
+      <div style="padding:10px 14px;color:#8a877e">Attendance</div>
+      <div style="padding:10px 14px;color:#8a877e">Payments</div>
+      <div style="padding:10px 14px;color:#8a877e">Certifications</div>
+      <div style="padding:10px 14px;color:#8a877e">Placement</div>
+    </div>
+    <div style="padding:18px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:12px;text-align:center"><div style="font:11px 'JetBrains Mono';color:#8a877e">ATTENDANCE RATE</div><div style="font:700 20px Inter;margin-top:4px">92%</div></div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:12px;text-align:center"><div style="font:11px 'JetBrains Mono';color:#8a877e">STREAK</div><div style="font:700 20px Inter;margin-top:4px">14 days</div></div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:12px;text-align:center"><div style="font:11px 'JetBrains Mono';color:#8a877e">AVG. SESSION RATING</div><div style="font:700 20px Inter;margin-top:4px">4.3 / 5</div></div>
+      <div style="border:1px solid #e4e2dd;border-radius:6px;padding:12px;text-align:center"><div style="font:11px 'JetBrains Mono';color:#8a877e">TOPICS COMPLETE</div><div style="font:700 20px Inter;margin-top:4px">34 / 48</div></div>
+    </div>
+    <div style="padding:0 20px 20px;font:12px Inter;color:#6b675e">Today: checked in via GPS 9:58am · Topic: React Hooks · Rating 4/5 · Difficulty noted: "state management" · Tomorrow's plan: Context API</div>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Learning Dashboards</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:8px">
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:14px">
+      <div style="font:700 12px Inter;margin-bottom:8px">Student</div>
+      <div style="font:11.5px Inter;color:#3a3833;line-height:1.8">Today's session · Attendance · Current topic · Completion % · Rating · Difficulties noted · Tomorrow's plan · Streak</div>
+    </div>
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:14px">
+      <div style="font:700 12px Inter;margin-bottom:8px">Trainer</div>
+      <div style="font:11.5px Inter;color:#3a3833;line-height:1.8">Batch roster · Attendance grid · Progress by student · <span style="color:oklch(45% 0.13 25)">3 at-risk students</span> · Session ratings · Topics completed · Reported difficulties</div>
+    </div>
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:14px">
+      <div style="font:700 12px Inter;margin-bottom:8px">Admin (Learning)</div>
+      <div style="font:11.5px Inter;color:#3a3833;line-height:1.8">Batch performance · Attendance trend · Completion rate · Drop-off analysis · Trainer performance · Learning outcomes</div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font:12px 'JetBrains Mono';color:#6b675e">
+    <div><b style="color:#1c1b19">DATA</b><br>student_id (→person_id), enrollment, daily_progress{topic,rating,difficulty,plan}, attendance{gps,checkin,rate}, recommendation_scores</div>
+    <div><b style="color:#1c1b19">ACTIONS</b><br>Advance admissions stage, run recommendation, enroll, mark attendance, log daily progress, issue certificate, create placement record</div>
+    <div><b style="color:#1c1b19">PERMISSIONS</b><br>Counsellor: enquiry→enrollment. Trainer: attendance+progress for own batch. Student self-service: view own dashboard, check in</div>
+    <div><b style="color:#1c1b19">STATES</b><br>Recommendation empty: "Complete interests &amp; goals to see matches." At-risk trainer view empty: "No students below threshold — nice work"</div>
+  </div>
+</section>
+
+<!-- ============ 10 HANDOFF SUMMARY ============ -->
+<section id="handoff" style="padding-top:56px;border-top:1px solid #e4e2dd">
+  <div style="font:700 26px Inter;margin-bottom:4px">10 · Developer Handoff Summary</div>
+  <div style="font:14px Inter;color:#6b675e;max-width:900px;margin-bottom:20px">Round 1 covers the modules below in full. Everything else from the brief is scoped into later phases so the team isn't blocked waiting for a single 40-screen drop.</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px">
+      <div style="font:700 12px Inter;margin-bottom:8px">Built this round (MVP)</div>
+      <div style="font:12px Inter;color:#3a3833;line-height:1.9">Global Shell · Executive Dashboard · People (list + 360) · Organizations (list + 360) · Institutions (list + map + filters + 360 + timeline) · MoUs (list + detail + renewal) · Leads + Opportunity Pipeline + detail · Education (admissions pipeline, recommendation engine, student 360, learning dashboards)</div>
+    </div>
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px">
+      <div style="font:700 12px Inter;margin-bottom:8px">Phase 2 (next round)</div>
+      <div style="font:12px Inter;color:#3a3833;line-height:1.9">Activities/Tasks/Communications hub · Course &amp; Career Path management · Enrollment/Attendance forms · Certifications · Placements · Alumni · Vertical-specific pipeline views (SAP, Cybersecurity, AI/Automation, Partnerships, Research)</div>
+    </div>
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px">
+      <div style="font:700 12px Inter;margin-bottom:8px">Phase 3</div>
+      <div style="font:12px Inter;color:#3a3833;line-height:1.9">Campaigns · Projects/Delivery · Reports &amp; Analytics suite (geographic intelligence, customer health, workforce demand) · Settings &amp; role/permission management screens · full responsive (tablet/mobile) wireframes</div>
+    </div>
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px">
+      <div style="font:700 12px Inter;margin-bottom:8px">Deferred / open decisions</div>
+      <div style="font:12px Inter;color:#3a3833;line-height:1.9">Exact AISHE/UDISE data source integration · buying-committee data model depth · whether Campaigns is CRM-native or synced from an ESP · project-management boundary (CRM tracks status/milestones only, not full Gantt/resourcing)</div>
+    </div>
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Reusable Components (built once, used across screens)</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px;margin-bottom:20px;font:12px Inter;color:#3a3833;line-height:2">
+    <b>Universal Record Header</b> — Person, Org, Institution, Opportunity, MoU 360 pages<br>
+    <b>Relationship Panel</b> — Person 360, Org 360, Institution 360<br>
+    <b>Activity Timeline</b> — Institution 360, Person 360, Org 360, Opportunity detail<br>
+    <b>Status/Relationship Badge</b> — every list and detail screen<br>
+    <b>Filter Bar / Filter Drawer</b> — People, Organizations, Institutions list, Map, Leads<br>
+    <b>Data Table</b> — every list screen<br>
+    <b>KPI Card</b> — Dashboard, Reports (Phase 3)<br>
+    <b>Map Marker + Cluster</b> — Institution Map<br>
+    <b>Institution/Record Drawer</b> — Map selection, Global Search<br>
+    <b>Quick Create Modal</b> — Global Shell<br>
+    <b>Pipeline Board (Kanban)</b> — Opportunity Pipeline, Admissions (list variant)<br>
+    <b>AI Insight Card</b> — Institution 360; reused for Opportunity/Lead scoring in Phase 2
+  </div>
+
+  <div style="font:700 13px Inter;margin-bottom:10px;color:#3a3833">Permission Matrix (this round's modules)</div>
+  <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px;overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font:11.5px Inter;min-width:820px">
+      <tr style="font:10.5px 'JetBrains Mono';color:#8a877e"><td style="padding:5px 8px 5px 0">ROLE</td><td>PEOPLE/ORGS</td><td>INSTITUTIONS/MAP</td><td>MoUs</td><td>OPPORTUNITIES</td><td>FINANCIAL DATA</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:6px 8px 6px 0;font-weight:600">Founder/Exec</td><td>View, Edit</td><td>View, Edit</td><td>View, Approve</td><td>View, Edit</td><td>Yes</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:6px 8px 6px 0;font-weight:600">Sales / BD</td><td>View, Create, Edit own</td><td>View, Create, Edit own</td><td>View, Create</td><td>View, Create, Edit own</td><td>Yes</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:6px 8px 6px 0;font-weight:600">Counsellor</td><td>View, Create (students)</td><td>View</td><td>View</td><td>No</td><td>No</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:6px 8px 6px 0;font-weight:600">Telecaller</td><td>View, Create leads</td><td>View</td><td>No</td><td>No</td><td>No</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:6px 8px 6px 0;font-weight:600">Trainer</td><td>View own students</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:6px 8px 6px 0;font-weight:600">Finance</td><td>View</td><td>View</td><td>View</td><td>View</td><td>Yes</td></tr>
+      <tr style="border-top:1px solid #eeece7"><td style="padding:6px 8px 6px 0;font-weight:600">Admin</td><td>Full</td><td>Full</td><td>Full</td><td>Full</td><td>Yes</td></tr>
+    </table>
+  </div>
+
+  <div style="margin-top:24px;font:12px Inter;color:#8a877e">Reply with which Phase 2/3 module to build next, or ask for changes to anything above.</div>
+</section>
+
+<!-- ============ 11 PHASE 2 OVERVIEW ============ -->
+<section id="phase2" style="padding-top:56px;border-top:1px solid #e4e2dd">
+  <div style="font:700 26px Inter;margin-bottom:4px">11 · Phase 2 Overview</div>
+  <div style="font:14px Inter;color:#6b675e;max-width:900px;margin-bottom:20px">Not yet built — scope and screen inventory only, so the next round can be scheduled and estimated before wireframing starts.</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px">
+      <div style="font:700 13px Inter;margin-bottom:8px">Activities / Tasks / Communications Hub</div>
+      <div style="font:12px Inter;color:#3a3833;line-height:1.8;margin-bottom:8px">Cross-record task queue and message log — the operational layer every role touches daily.</div>
+      <div style="font:11px Inter;color:#8a877e">Screens: My Tasks (list + calendar), Task Detail, Activity Composer (call/email/meeting log), Communications Timeline (unified inbox view scoped to a record)</div>
+    </div>
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px">
+      <div style="font:700 13px Inter;margin-bottom:8px">Course &amp; Career Path Management</div>
+      <div style="font:12px Inter;color:#3a3833;line-height:1.8;margin-bottom:8px">Catalog behind the recommendation engine — courses, prerequisites, career paths, seat capacity.</div>
+      <div style="font:11px Inter;color:#8a877e">Screens: Course Catalog (list), Course Detail, Career Path Builder, Batch/Cohort Scheduling</div>
+    </div>
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px">
+      <div style="font:700 13px Inter;margin-bottom:8px">Enrollment, Attendance &amp; Certifications</div>
+      <div style="font:12px Inter;color:#3a3833;line-height:1.8;margin-bottom:8px">Forms and rosters that feed the Student 360 already built in Phase 1.</div>
+      <div style="font:11px Inter;color:#8a877e">Screens: Enrollment Form, Attendance Roster (daily), Attendance Report, Certification Issuance, Certificate Registry</div>
+    </div>
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px">
+      <div style="font:700 13px Inter;margin-bottom:8px">Placements &amp; Alumni</div>
+      <div style="font:12px Inter;color:#3a3833;line-height:1.8;margin-bottom:8px">Closes the education loop — student to hired alumnus, still one Person record.</div>
+      <div style="font:11px Inter;color:#8a877e">Screens: Placement Drive Board, Employer Match List, Placement Record, Alumni Directory, Alumni 360 (extends Student 360)</div>
+    </div>
+    <div style="border:1px solid #d9d7d2;background:#fff;border-radius:6px;padding:16px">
+      <div style="font:700 13px Inter;margin-bottom:8px">Vertical-Specific Pipeline Views</div>
+      <div style="font:12px Inter;color:#3a3833;line-height:1.8;margin-bottom:8px">Same Opportunity record, stage sets tuned per vertical (SAP, Cybersecurity, AI/Automation, Partnerships, Research).</div>
+      <div style="font:11px Inter;color:#8a877e">Screens: Vertical Pipeline Board (config variant of Phase 1 Kanban), Vertical Opportunity Detail overlays</div>
+    </div>
+  </div>
+
+  <div style="border:1px solid #d9d7d2;background:#faf9f7;border-radius:6px;padding:16px;margin-bottom:20px">
+    <div style="font:700 12px Inter;margin-bottom:6px">Depends on Phase 1</div>
+    <div style="font:12px Inter;color:#3a3833;line-height:1.8">Activity Timeline, Relationship Panel, Status Badge, and Data Table components carry over unchanged. Task/Activity records already exist as stubs in Institution 360 and Opportunity detail — Phase 2 gives them their own list and composer surfaces.</div>
+  </div>
+
+  <div style="font:12px Inter;color:#8a877e">Say the word and I'll wireframe any module above in full — screens, states, and data contracts, same as Phase 1.</div>
+</section>
+
+</div>
+
+</x-dc>
+</body>
+</html>

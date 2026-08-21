@@ -3,13 +3,13 @@
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 
-const d = { course: "Course Name", level: "Learner", day: 45, total: 180, rem: 135, topics: { d: 120, t: 540 }, assign: { d: 38, t: 45 }, att: { p: 40, t: 45 }, rating: 4.2, streak: 12, weak: ["Topic A", "Topic B"] };
+const d = { course: "Full Stack Web Development", level: "Learner", day: 81, total: 180, rem: 99, topics: { d: 220, t: 540 }, assign: { d: 68, t: 81 }, att: { p: 72, t: 81 }, rating: 4.2, streak: 12, weak: ["CSS Flexbox & Grid Layout", "Async/Await & Promise Chaining"] };
 const recent = [
-  { day: 45, title: "Day Title", topics: "3/3", rating: 4 },
-  { day: 44, title: "Day Title", topics: "4/4", rating: 5 },
-  { day: 43, title: "Day Title", topics: "3/4", rating: 3 },
-  { day: 42, title: "Day Title", topics: "5/5", rating: 4 },
-  { day: 41, title: "Day Title", topics: "2/3", rating: 4 },
+  { day: 81, title: "React Hooks & Context API", topics: "2/3", rating: 4 },
+  { day: 80, title: "Component Lifecycle & useEffect", topics: "4/4", rating: 5 },
+  { day: 79, title: "React Router v6 & Nested Routes", topics: "3/4", rating: 3 },
+  { day: 78, title: "State Management with useState", topics: "5/5", rating: 4 },
+  { day: 77, title: "Introduction to React & JSX", topics: "3/3", rating: 4 },
 ];
 
 function Stat({ val, label, pct, color }: { val: string; label: string; pct: number; color: string }) {
@@ -17,14 +17,14 @@ function Stat({ val, label, pct, color }: { val: string; label: string; pct: num
 }
 
 export default function StudentProgressPage() {
-  const dayP = Math.round((d.day / d.total) * 100), topP = Math.round((d.topics.d / d.topics.t) * 100), assP = Math.round((d.assign.d / d.assign.t) * 100), attP = Math.round((d.att.p / d.att.t) * 100);
+  const dayPct = Math.round((d.day / d.total) * 100), topP = Math.round((d.topics.d / d.topics.t) * 100), assP = Math.round((d.assign.d / d.assign.t) * 100), attP = Math.round((d.att.p / d.att.t) * 100);
 
   return (
     <div className="p-4 space-y-4">
       <div className="bg-primary/5 rounded-2xl p-4 border border-primary/10">
         <div className="flex items-center justify-between mb-1"><h2 className="text-base font-bold">{d.course}</h2><Badge variant="outline" className="font-mono text-[10px]">Day {d.day}</Badge></div>
         <div className="flex items-center gap-2 text-xs text-muted-foreground"><span>{d.level}</span><span>&bull;</span><Badge className="bg-emerald-500/10 text-emerald-600 text-[9px] px-1.5 py-0">Active</Badge><span>&bull;</span><span>{d.rem} days left</span></div>
-        <div className="flex items-center gap-2 mt-3"><Progress value={dayP} className="h-2 flex-1" /><span className="text-xs font-semibold">{dayP}%</span></div>
+        <div className="flex items-center gap-2 mt-3"><Progress value={dayPct} className="h-2 flex-1" /><span className="text-xs font-semibold">{dayPct}%</span></div>
       </div>
 
       <div className="grid grid-cols-2 gap-3">

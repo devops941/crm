@@ -6,8 +6,14 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import type { DiscoveryFormData } from "@/app/student/discovery/page";
 
-export function PersonalInfoStep() {
+interface Props {
+  data: DiscoveryFormData;
+  onChange: (partial: Partial<DiscoveryFormData>) => void;
+}
+
+export function PersonalInfoStep({ data, onChange }: Props) {
   return (
     <Card>
       <CardHeader>
@@ -25,18 +31,18 @@ export function PersonalInfoStep() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="fullName">Full Name *</Label>
-            <Input id="fullName" placeholder="Enter your full name" className="h-12 text-base" />
+            <Input id="fullName" placeholder="Enter your full name" className="h-12 text-base" value={data.fullName} onChange={(e) => onChange({ fullName: e.target.value })} />
           </div>
           <div className="space-y-2">
             <Label htmlFor="dob">Date of Birth *</Label>
-            <Input id="dob" type="date" className="h-12 text-base" />
+            <Input id="dob" type="date" className="h-12 text-base" value={data.dob} onChange={(e) => onChange({ dob: e.target.value })} />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="gender">Gender *</Label>
-            <Select>
+            <Select value={data.gender || undefined} onValueChange={(v) => v && onChange({ gender: v })}>
               <SelectTrigger className="h-12"><SelectValue placeholder="Select gender" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="male">Male</SelectItem>
@@ -48,25 +54,25 @@ export function PersonalInfoStep() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="mobile">Mobile Number *</Label>
-            <Input id="mobile" type="tel" placeholder="+91 98765 43210" className="h-12 text-base" />
+            <Input id="mobile" type="tel" placeholder="+91 98765 43210" className="h-12 text-base" value={data.mobile} onChange={(e) => onChange({ mobile: e.target.value })} />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email Address *</Label>
-            <Input id="email" type="email" placeholder="student@email.com" className="h-12 text-base" />
+            <Input id="email" type="email" placeholder="student@email.com" className="h-12 text-base" value={data.email} onChange={(e) => onChange({ email: e.target.value })} />
           </div>
           <div className="space-y-2">
             <Label htmlFor="location">City / Location *</Label>
-            <Input id="location" placeholder="Chennai, Tamil Nadu" className="h-12 text-base" />
+            <Input id="location" placeholder="Chennai, Tamil Nadu" className="h-12 text-base" value={data.location} onChange={(e) => onChange({ location: e.target.value })} />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label>Employment Status</Label>
-            <Select>
+            <Select value={data.employmentStatus || undefined} onValueChange={(v) => v && onChange({ employmentStatus: v })}>
               <SelectTrigger className="h-12"><SelectValue placeholder="Select status" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="student">Student</SelectItem>
@@ -78,7 +84,7 @@ export function PersonalInfoStep() {
           </div>
           <div className="space-y-2">
             <Label>Work Experience (years)</Label>
-            <Select>
+            <Select value={data.experience || undefined} onValueChange={(v) => v && onChange({ experience: v })}>
               <SelectTrigger className="h-12"><SelectValue placeholder="Select experience" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="0">Fresher (0 years)</SelectItem>
@@ -92,11 +98,13 @@ export function PersonalInfoStep() {
 
         <div className="space-y-2">
           <Label>Preferred Branch *</Label>
-          <Select>
+          <Select value={data.branchId || undefined} onValueChange={(v) => v && onChange({ branchId: v })}>
             <SelectTrigger className="h-12"><SelectValue placeholder="Select branch to attend" /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="b1">Branch 1</SelectItem>
-              <SelectItem value="b2">Branch 2</SelectItem>
+              <SelectItem value="br1">Madurai HQ</SelectItem>
+              <SelectItem value="br2">Chennai Branch</SelectItem>
+              <SelectItem value="br3">Bangalore Branch</SelectItem>
+              <SelectItem value="br4">Coimbatore Branch</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -104,16 +112,16 @@ export function PersonalInfoStep() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="emergencyName">Emergency Contact Name</Label>
-            <Input id="emergencyName" placeholder="Parent / Guardian name" className="h-12 text-base" />
+            <Input id="emergencyName" placeholder="Parent / Guardian name" className="h-12 text-base" value={data.emergencyName} onChange={(e) => onChange({ emergencyName: e.target.value })} />
           </div>
           <div className="space-y-2">
             <Label htmlFor="emergencyPhone">Emergency Contact Phone</Label>
-            <Input id="emergencyPhone" type="tel" placeholder="+91 ..." className="h-12 text-base" />
+            <Input id="emergencyPhone" type="tel" placeholder="+91 ..." className="h-12 text-base" value={data.emergencyPhone} onChange={(e) => onChange({ emergencyPhone: e.target.value })} />
           </div>
         </div>
 
         <div className="flex items-start gap-2 pt-2">
-          <Checkbox id="consent" className="mt-0.5" />
+          <Checkbox id="consent" className="mt-0.5" checked={data.consent} onCheckedChange={(v) => onChange({ consent: v === true })} />
           <Label htmlFor="consent" className="text-xs text-muted-foreground font-normal leading-relaxed cursor-pointer">
             I agree to the privacy policy and consent to the collection and processing of my personal data for course counselling purposes.
           </Label>

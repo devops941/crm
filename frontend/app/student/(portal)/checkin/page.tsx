@@ -12,8 +12,9 @@ export default function CheckInPage() {
   const [distance, setDistance] = useState<number | null>(null);
   const [checkInTime, setCheckInTime] = useState<string | null>(null);
 
-  const branch = { name: "Branch Name", lat: 13.0827, lng: 80.2707, radius: 100, open: "09:00 AM", close: "06:00 PM" };
-  const enrollment = { course: "Course Name", level: "Learner", batch: "Morning", day: 45, total: 180 };
+  // In production: fetch from API based on logged-in student's enrollment
+  const branch = { name: "Madurai HQ", lat: 9.9252, lng: 78.1198, radius: 100, open: "09:00 AM", close: "06:00 PM" };
+  const enrollment = { course: "Full Stack Web Development", level: "Learner", batch: "Morning", day: 81, total: 180 };
 
   const haversine = (lat1: number, lon1: number, lat2: number, lon2: number) => {
     const R = 6371000;

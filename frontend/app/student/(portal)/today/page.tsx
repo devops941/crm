@@ -8,17 +8,17 @@ import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const topics = [
-  { id: "t1", name: "Topic Name", obj: "Learning objective", res: "https://example.com", diff: "Easy" },
-  { id: "t2", name: "Topic Name", obj: "Learning objective", res: "https://example.com", diff: "Medium" },
-  { id: "t3", name: "Topic Name", obj: "Learning objective", res: "", diff: "Hard" },
+  { id: "t1", name: "useState & useEffect Deep Dive", obj: "Understand side-effect management and state lifecycle in functional components", res: "https://react.dev/reference/react/useState", diff: "Easy" },
+  { id: "t2", name: "useContext & Context API", obj: "Share state across the component tree without prop drilling", res: "https://react.dev/reference/react/useContext", diff: "Medium" },
+  { id: "t3", name: "Custom Hooks", obj: "Extract and reuse stateful logic by building your own hooks", res: "", diff: "Hard" },
 ];
-const assignment = "Assignment description for today";
-const teacher = "Teacher Name";
+const assignment = "Build a theme-switcher using Context API + a custom useTheme() hook. The hook should expose the current theme and a toggle function. Persist the preference in localStorage via useEffect.";
+const teacher = "Arjun Mehta";
 const diffColors: Record<string, string> = { Easy: "bg-emerald-500/10 text-emerald-600", Medium: "bg-yellow-500/10 text-yellow-600", Hard: "bg-red-500/10 text-red-600" };
 
 export default function TodayPage() {
   const [done, setDone] = useState<string[]>([]);
-  const day = 45, total = 180;
+  const day = 81, total = 180;
   const toggle = (id: string) => setDone((p) => p.includes(id) ? p.filter((x) => x !== id) : [...p, id]);
   const pct = Math.round((done.length / topics.length) * 100);
 
@@ -32,7 +32,7 @@ export default function TodayPage() {
           </div>
           <span className="text-[10px] text-muted-foreground">{new Date().toLocaleDateString("en-IN", { weekday: "short", month: "short", day: "numeric" })}</span>
         </div>
-        <h2 className="text-base font-bold mt-1">Course Name</h2>
+        <h2 className="text-base font-bold mt-1">Full Stack Web Development</h2>
         <div className="flex items-center gap-2 mt-2"><Progress value={Math.round((day / total) * 100)} className="h-1.5 flex-1" /><span className="text-[10px] text-muted-foreground">{day}/{total}</span></div>
         <div className="flex items-center gap-1.5 mt-2 text-[11px] text-muted-foreground"><User className="h-3 w-3" /> {teacher}</div>
       </div>

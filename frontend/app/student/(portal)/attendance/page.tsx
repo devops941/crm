@@ -12,15 +12,15 @@ const cfg: Record<string, { icon: typeof CheckCircle2; color: string; bg: string
 };
 
 const records = [
-  { day: 45, date: "Oct 15", in: "09:15 AM", out: "05:30 PM", dur: "8h 15m", dist: "45m", status: "Present", reason: "" },
-  { day: 44, date: "Oct 14", in: "09:45 AM", out: "05:00 PM", dur: "7h 15m", dist: "32m", status: "Late", reason: "Traffic" },
-  { day: 43, date: "Oct 13", in: "09:00 AM", out: "05:45 PM", dur: "8h 45m", dist: "28m", status: "Present", reason: "" },
-  { day: 42, date: "Oct 12", in: "—", out: "—", dur: "—", dist: "—", status: "Absent", reason: "Sick leave" },
-  { day: 41, date: "Oct 11", in: "09:10 AM", out: "12:30 PM", dur: "3h 20m", dist: "55m", status: "Half-day", reason: "Personal" },
-  { day: 40, date: "Oct 10", in: "08:55 AM", out: "05:30 PM", dur: "8h 35m", dist: "20m", status: "Present", reason: "" },
+  { day: 81, date: "Aug 21", in: "09:15 AM", out: "05:30 PM", dur: "8h 15m", dist: "45m", status: "Present", reason: "" },
+  { day: 80, date: "Aug 20", in: "09:45 AM", out: "05:00 PM", dur: "7h 15m", dist: "32m", status: "Late", reason: "Traffic" },
+  { day: 79, date: "Aug 19", in: "09:00 AM", out: "05:45 PM", dur: "8h 45m", dist: "28m", status: "Present", reason: "" },
+  { day: 78, date: "Aug 18", in: "—", out: "—", dur: "—", dist: "—", status: "Absent", reason: "Sick leave" },
+  { day: 77, date: "Aug 15", in: "09:10 AM", out: "12:30 PM", dur: "3h 20m", dist: "55m", status: "Half-day", reason: "Independence Day holiday — half session" },
+  { day: 76, date: "Aug 14", in: "08:55 AM", out: "05:30 PM", dur: "8h 35m", dist: "20m", status: "Present", reason: "" },
 ];
 
-const sum = { present: 35, absent: 3, late: 5, half: 2, total: 45 };
+const sum = { present: 65, absent: 5, late: 8, half: 3, total: 81 };
 
 export default function StudentAttendancePage() {
   return (
