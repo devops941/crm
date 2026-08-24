@@ -9,7 +9,7 @@ import { FilterBar } from "@/components/crm/filter-bar";
 import { StatusBadge } from "@/components/crm/status-badge";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-// Inline progress bars use plain divs — no Base UI Root needed
+import { EnrollmentForm } from "@/components/crm/enrollment-form";
 
 type EnrollmentRow = Enrollment & Record<string, unknown>;
 
@@ -141,6 +141,7 @@ export default function EnrollmentsPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [filters, setFilters] = useState<Record<string, string>>({});
   const [search, setSearch] = useState("");
+  const [createOpen, setCreateOpen] = useState(false);
   const [sortKey, setSortKey] = useState("start_date");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
@@ -196,7 +197,7 @@ export default function EnrollmentsPage() {
             Active and historical enrolments across courses and cohorts
           </p>
         </div>
-        <Button className="gap-1.5" onClick={() => console.log("New Enrollment — form coming soon")}>
+        <Button className="gap-1.5" onClick={() => setCreateOpen(true)}>
           <Plus className="size-4" /> New Enrollment
         </Button>
       </div>
@@ -221,6 +222,16 @@ export default function EnrollmentsPage() {
         sortKey={sortKey}
         sortDir={sortDir}
         onSortChange={handleSortChange}
+      />
+
+      <EnrollmentForm
+        open={createOpen}
+        onOpenChange={setCreateOpen}
+        onSave={(data) => {
+          console.log("API CALL: createEnrollment", data);
+          setCreateOpen(false);
+          fetchData();
+        }}
       />
     </div>
   );
