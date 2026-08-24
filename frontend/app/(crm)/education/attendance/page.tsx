@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { getStudents } from "@/lib/api";
+import { getStudents, logAttendance } from "@/lib/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -92,8 +92,18 @@ function TakeAttendanceTab() {
 
   async function handleSave() {
     setSaving(true);
-    // Placeholder — wire to POST /attendance when backend ready
-    await new Promise((r) => setTimeout(r, 800));
+    // Log each marked student's attendance via API
+    const marked = students.filter((s) => s.status !== null);
+    for (const s of marked) {
+      await logAttendance({
+        enrollment_id: s.studentId,
+        student_id: s.studentId,
+        branch_id: "br1",
+        date: new Date().toISOString().split("T")[0],
+        day_number: 0,
+        status: s.status as "present" | "absent" | "late",
+      });
+    }
     setSaving(false);
     setSaved(true);
   }

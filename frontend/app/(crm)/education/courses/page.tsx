@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { SearchIcon, LayersIcon, ClockIcon, IndianRupeeIcon, Plus } from "lucide-react";
+import { CourseForm } from "@/components/crm/course-form";
 
 function CourseCardSkeleton() {
   return (
@@ -38,6 +39,7 @@ export default function CoursesPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [createOpen, setCreateOpen] = useState(false);
 
   useEffect(() => {
     Promise.all([getCourses(), getCourseCategories()])
@@ -86,7 +88,7 @@ export default function CoursesPage() {
             All courses across verticals and delivery modes
           </p>
         </div>
-        <Button className="gap-1.5" onClick={() => console.log("New Course — form coming soon")}>
+        <Button className="gap-1.5" onClick={() => setCreateOpen(true)}>
           <Plus className="size-4" /> New Course
         </Button>
       </div>
@@ -210,6 +212,19 @@ export default function CoursesPage() {
               );
             })}
       </div>
+
+      <CourseForm
+        open={createOpen}
+        onOpenChange={setCreateOpen}
+        onSave={(data) => {
+          console.log("API CALL: createCourse", data);
+          setCreateOpen(false);
+          Promise.all([getCourses(), getCourseCategories()]).then(([c, cat]) => {
+            setCourses(c.data);
+            setCategories(cat);
+          });
+        }}
+      />
     </div>
   );
 }
